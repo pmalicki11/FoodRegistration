@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      //"debugServer": 4711, // Uncomment for debugging the adapter
+      "name": "Listen for XDebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9000,
+      "log": true
+    },
+    {
+      //"debugServer": 4711, // Uncomment for debugging the adapter
+      "name": "Launch",
+      "request": "launch",
+      "type": "php",
+      "program": "${file}",
+      "cwd": "${workspaceRoot}",
+      "externalConsole": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "guest" : {
+    "home" : ["*"],
+    "account" : [
+      "login",
+      "register"
+    ]
+  },
+  "user" : {
+    "home" : ["*"],
+    "account" : [
+      "profile",
+      "logout"
+    ],
+    "products" : ["*"]
+  },
+  "admin" : {
+    "home" : ["*"],
+    "account" : [
+      "profile",
+      "logout"
+    ],
+    "products" : ["*"],
+    "ingredients" : ["*"]
+  }
+}

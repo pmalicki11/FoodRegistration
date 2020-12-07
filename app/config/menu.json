@@ -1,0 +1,9 @@
+  {
+    "Home Page" : "home",
+    "Products Base" : "products/index",
+    "Ingredients Base" : "ingredients/index",
+    "Log In" : "account/login",
+    "Register" : "account/register",
+    "My Account" : "account/profile",
+    "Log Out" : "account/logout"
+  }
