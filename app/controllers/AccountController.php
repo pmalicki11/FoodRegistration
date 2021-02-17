@@ -69,6 +69,7 @@
       $this->_view->render('account/login');
     }
 
+    
     public function logoutAction() {
       session_destroy();
       setcookie(COOKIENAME, "", time() - 3600, PROOT);
