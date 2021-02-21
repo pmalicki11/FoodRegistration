@@ -18,6 +18,10 @@
       $this->_db = DB::getInstance();
     }
 
+    public function getFromRequest() {
+      echo 'test';
+    }
+
     public static function build() {
       $instance = new self();
       return $instance;

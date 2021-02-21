@@ -17,15 +17,17 @@
       require_once(ROOT . DS . 'app' . DS . 'controllers' . DS . $className . '.php');
     } elseif (file_exists(ROOT . DS . 'app' . DS . 'models' . DS . $className . '.php')) {
       require_once(ROOT . DS . 'app' . DS . 'models' . DS . $className . '.php');
+    } elseif (file_exists(ROOT . DS . 'app' . DS . 'validators' . DS . $className . '.php')) {
+      require_once(ROOT . DS . 'app' . DS . 'validators' . DS . $className . '.php');
     }
   }
 
     spl_autoload_register('autoload');
 
     if(!Account::currentLoggedIn()) {
-      if(isset($_COOKIE[COOKIENAME])) {
+      if(isset($_COOKIE[REMEMBER_ME_COOKIE_NAME])) {
         $user = new Account();
-        if($user->loginFromCookie($_COOKIE[COOKIENAME])) {
+        if($user->loginFromCookie($_COOKIE[REMEMBER_ME_COOKIE_NAME])) {
           $_SESSION['user'] = $user->toArray();
         }
       }

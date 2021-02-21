@@ -39,49 +39,37 @@
 
 
     public function loginAction() {
-      $this->_view->errors = [];
+      $request = new Request();
+      if(!$request->isEmpty()) {
+        $user = new User();
+        $user->setFromRequest($request);
+        $errors = $user->validate();
 
-      if(isset($_POST) && !empty($_POST)) {
-        $this->_account = Account::build()
-          ->setUsername($_POST['username'])
-          ->setPassword($_POST['password']);
-
-        if($this->_account->login()) {
-          $userAgent = UserSessions::userAgentNoVersion();
-          $this->_userSessions = UserSessions::build()
-            ->setAccountId($this->_account->getId())
-            ->setUserAgent($userAgent);
-          $this->_userSessions->remove();
-            
-          if(isset($_POST['remember']) && $_POST['remember'] == 'on') {
-            $sessionCookie = md5(rand()) . md5(rand());
-            $this->_userSessions->setSessionId($sessionCookie);
-            $this->_userSessions->add();
-            setcookie(COOKIENAME, $sessionCookie, time() + COOKIEDURABILITY, PROOT);
+        if(empty($errors)) {
+          $authenticator = new Authenticator();
+          if($authenticator->loginUser($user)) {            
+            $authenticator->removeUserSession();
+            if($request->remember == 'on') {
+              $userSession = new UserSession($user);
+              $authenticator->addUserSession($userSession);
+              Cookie::setRememberCookie($userSession->getSessionId());
+            }
+            Session::setUserSession($user);
+            Router::redirect('home/index');
           }
-
-          $_SESSION['user'] = $this->_account->toArray();
-          header('Location: '. PROOT .'home/index');
-          die();
+          $errors = $authenticator->getErrors();
         }
-        $this->_view->errors = $this->_account->getErrors();
+        $this->_view->errors = $errors;
       }
-      $this->_view->render('account/login');
+      $this->_view->render('account/login');   
     }
 
     
     public function logoutAction() {
+      $authenticator = new Authenticator();
+      $authenticator->removeUserSession();
       session_destroy();
-      setcookie(COOKIENAME, "", time() - 3600, PROOT);
-    
-      $user = Account::currentLoggedIn();
-      $userAgent = UserSessions::userAgentNoVersion();
-      $this->_userSessions = UserSessions::build()
-        ->setAccountId($user['id'])
-        ->setUserAgent($userAgent);
-      $this->_userSessions->remove();
-
-      header('Location: '. PROOT .'home/index');
-      die();
+      Cookie::deleteRememberCookie();
+      Router::redirect('home/index');
     }
   }

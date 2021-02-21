@@ -4,7 +4,7 @@
 ?>
 
 <h1>Login Page</h1>
-<?=($this->errors)?var_dump($this->errors):''; ?>
+<?=($this->errors) ? var_dump($this->errors) : ''; ?>
 
 <form action="login" method="post">
 
