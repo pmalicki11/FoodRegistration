@@ -24,13 +24,9 @@
 
     spl_autoload_register('autoload');
 
-    if(!Account::currentLoggedIn()) {
-      if(isset($_COOKIE[REMEMBER_ME_COOKIE_NAME])) {
-        $user = new Account();
-        if($user->loginFromCookie($_COOKIE[REMEMBER_ME_COOKIE_NAME])) {
-          $_SESSION['user'] = $user->toArray();
-        }
-      }
+    if(!Session::currentUser()) {
+      $authenticator = new Authenticator();
+      $authenticator->loginFromCookie();
     }
 
     $url = isset($_SERVER['PATH_INFO']) ? explode('/', trim($_SERVER['PATH_INFO'], '/')) : [];

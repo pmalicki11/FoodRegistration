@@ -23,7 +23,41 @@
         return true;
       }
       return false;
-    } 
+    }
+
+    public function loginFromCookie() {
+      $sessionId = Cookie::getCookie(REMEMBER_ME_COOKIE_NAME);
+      if($sessionId) {
+        $this->_userSession = new UserSession();
+        if($this->_loadUserSession($sessionId)) {
+          $this->_user = new User();
+          $conditions = [];
+          $conditions['id'] = ['=', $this->_userSession->userId];
+          if($this->_loadUserData($conditions) && $this->_isUserActive()) {
+            Session::setUserSession($this->_user);
+          }
+        }
+      }
+    }
+
+
+    private function _loadUserSession($sessionId) {
+      $conditions = [];
+      $conditions['session_id'] = ['=', $sessionId];
+
+      $result = $this->_db->select('user_sessions', [
+        'Columns' => ['*'],
+        'Conditions' => $conditions
+      ]);
+
+      if(count($result) == 1) {
+        $this->_userSession->setFromDatabase($result[0]);
+        return true;
+      }
+      return false;
+    }
+
+
     
     private function _loadUserData($conditions) {
       $result = $this->_db->select('users', [
@@ -73,6 +107,8 @@
       ]];
       $this->_db->delete('user_sessions', $params);
     }
+
+    
 
     public function getErrors() {
       return $this->_errors;
