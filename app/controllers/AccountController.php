@@ -17,24 +17,29 @@
 
 
     public function registerAction() {
+      if(!Request::isEmpty()) {
+        $user = new User();
+        $user->setFromRequest();
+        $errors = $user->validateOnRegister();
+        var_dump($_REQUEST);
+        var_dump($errors);
+      }
+      $this->_view->render('account/register');
+      
+      /*
       $this->_view->errors = [];
-
       if(isset($_POST) && !empty($_POST)) {
-
-
         $this->_account = Account::build()
           ->setUsername($_POST['username'])
           ->setPassword($_POST['password'])
           ->setRePassword($_POST['repassword'])
           ->setEmail($_POST['email']);
-        
         if($this->_account->register()) {
           Router::redirect('home/index');
         } 
-
         $this->_view->errors = $this->_account->getErrors();
       }
-      $this->_view->render('account/register');
+      $this->_view->render('account/register');*/
     }
 
 
@@ -42,7 +47,7 @@
       if(!Request::isEmpty()) {
         $user = new User();
         $user->setFromRequest();
-        $errors = $user->validate();
+        $errors = $user->validateOnLogin();
 
         if(empty($errors)) {
           $authenticator = new Authenticator();

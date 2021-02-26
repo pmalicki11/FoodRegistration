@@ -34,9 +34,23 @@ class User {
     $this->active = $data['active'];
   }
 
-  public function validate() {
+  public function validateOnLogin() {
     $this->_validators[] = new LengthValidator('username', $this->username, 4, 50);
     $this->_validators[] = new LengthValidator('password', $this->password, 4, 50);
+    $errors = [];
+    foreach($this->_validators as $validator) {
+      if($validator->run())
+        $errors[] = $validator->run();
+    }
+    return $errors;
+  }
+
+  public function validateOnRegister() {
+    $this->_validators[] = new LengthValidator('username', $this->username, 4, 50);
+    $this->_validators[] = new LengthValidator('password', $this->password, 4, 50);
+    $this->_validators[] = new PasswordMatchValidator('repassword', $this->password, Request::get('repassword'));
+    $this->_validators[] = new EmailValidator('email', $this->email);
+
     $errors = [];
     foreach($this->_validators as $validator) {
       if($validator->run())
