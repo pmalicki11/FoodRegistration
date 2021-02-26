@@ -39,17 +39,16 @@
 
 
     public function loginAction() {
-      $request = new Request();
-      if(!$request->isEmpty()) {
+      if(!Request::isEmpty()) {
         $user = new User();
-        $user->setFromRequest($request);
+        $user->setFromRequest();
         $errors = $user->validate();
 
         if(empty($errors)) {
           $authenticator = new Authenticator();
           if($authenticator->loginUser($user)) {            
             $authenticator->removeUserSession();
-            if($request->remember == 'on') {
+            if(Request::get('remember') == 'on') {
               $userSession = new UserSession($user);
               $authenticator->addUserSession($userSession);
               Cookie::setRememberCookie($userSession->getSessionId());

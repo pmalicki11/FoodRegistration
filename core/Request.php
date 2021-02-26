@@ -5,11 +5,11 @@
     public function __construct() {
     }
 
-    public function isEmpty() {
+    public static function isEmpty() {
       return empty($_REQUEST);
     }
 
-    public function __get($field) {
+    public static function get($field) {
       return isset($_REQUEST[$field]) ? $_REQUEST[$field] : null;
     }
   }

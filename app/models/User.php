@@ -18,10 +18,10 @@ class User {
     return $this->_id;
   }
 
-  public function setFromRequest($request) {
-    $this->username = $request->username;
-    $this->password = $request->password;
-    $this->email = $request->email;
+  public function setFromRequest() {
+    $this->username = Request::get('username');
+    $this->password = Request::get('password');
+    $this->email = Request::get('email');
   }
 
   public function setFromDatabase($data) {
