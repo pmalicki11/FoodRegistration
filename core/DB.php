@@ -64,7 +64,7 @@
       $columnString = rtrim($columnString, ',');
       $valueString = rtrim($valueString, ',');
       $query = $this->_pdo->prepare("INSERT INTO `{$table}` ({$columnString}) VALUES ({$valueString})");
-      $query->execute(array_values($params));
+      return $query->execute(array_values($params));
     }
 
 

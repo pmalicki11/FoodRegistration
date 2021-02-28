@@ -40,7 +40,6 @@
       }
     }
 
-
     private function _loadUserSession($sessionId) {
       $conditions = [];
       $conditions['session_id'] = ['=', $sessionId];
@@ -56,8 +55,6 @@
       }
       return false;
     }
-
-
     
     private function _loadUserData($conditions) {
       $result = $this->_db->select('users', [
@@ -107,8 +104,6 @@
       ]];
       $this->_db->delete('user_sessions', $params);
     }
-
-    
 
     public function getErrors() {
       return $this->_errors;

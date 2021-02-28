@@ -21,8 +21,14 @@
         $user = new User();
         $user->setFromRequest();
         $errors = $user->validateOnRegister();
-        var_dump($_REQUEST);
-        var_dump($errors);
+        if(empty($errors)) {
+          $registrator = new Registrator();
+          if($registrator->registerUser($user)) {
+            Router::redirect('account/login');
+          }
+          $errors = $registrator->getErrors();
+        }
+        $this->_view->errors = $errors;
       }
       $this->_view->render('account/register');
       
