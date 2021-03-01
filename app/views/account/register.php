@@ -9,7 +9,7 @@
 <form action="register" method="post">
 
   <label for="username">Username:</label>
-  <input type="text" id="username" name="username">
+  <input type="text" id="username" name="username" value="<?=Request::get('username');?>">
 
   <label for="password">Password:</label>
   <input type="text" id="password" name="password">
@@ -18,7 +18,7 @@
   <input type="text" id="repassword" name="repassword">
 
   <label for="email">Email:</label>
-  <input type="text" id="email" name="email">
+  <input type="text" id="email" name="email" value="<?=Request::get('email');?>">
 
   <input type="submit" value="Submit">
 

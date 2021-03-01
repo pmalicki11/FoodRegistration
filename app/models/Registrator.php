@@ -28,7 +28,7 @@
       ]);
 
       if(count($result) > 0) {
-        $this->_errors = ['Username' => 'User already exists'];
+        $this->_errors = ['username' => 'User already exists'];
         return true;
       }
 
@@ -40,7 +40,7 @@
       ]);
 
       if(count($result) > 0) {
-        $this->_errors = ['Email' => 'Email is already used'];
+        $this->_errors = ['email' => 'Email is already used'];
         return true;
       }
       return false;

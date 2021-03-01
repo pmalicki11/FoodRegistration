@@ -18,10 +18,10 @@
       $result = null;
 
       if(strlen($this->_data) < $this->_minLength)
-        $result = [$this->_field => ucfirst($this->_field) . ' must be minimum ' . $this->_minLength . 'characters long'];
+        $result = [$this->_field => $this->_field . ' must be minimum ' . $this->_minLength . 'characters long'];
 
       if(strlen($this->_data) > $this->_maxLength)
-        $result = [$this->_field => ucfirst($this->_field) . ' must be maximum ' . $this->maxLength . 'characters long'];
+        $result = [$this->_field => $this->_field . ' must be maximum ' . $this->maxLength . 'characters long'];
   
       return $result;
     }

@@ -66,7 +66,7 @@
         $this->_user->setFromDatabase($result[0]);
         return true;
       }
-      $this->_errors = ['Username' => 'User does not exist'];
+      $this->_errors = ['username' => 'User does not exist'];
       return false;
     }
 
@@ -76,7 +76,7 @@
       if($password == $this->_user->password) {
         return true;
       }
-      $this->_errors = ['Password' => 'Wrong password'];
+      $this->_errors = ['password' => 'Wrong password'];
       return false;
     }
     
@@ -84,7 +84,7 @@
       if($this->_user->active) {
         return true;
       }
-      $this->_errors = ['Username' => 'User is not active'];
+      $this->_errors = ['username' => 'User is not active'];
       return true;
     }
 
