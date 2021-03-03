@@ -18,6 +18,6 @@
     }
 
     public static function currentUser() {
-      return (isset($_SESSION['user'])) ? $_SESSION['user'] : false;
+      return (isset($_SESSION['user'])) ? $_SESSION['user'] : null;
     }
   }

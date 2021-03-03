@@ -4,19 +4,27 @@
     
     public static function route($url) {
       
-      $controller = ((count($url)) ? ucfirst($url[0]) : 'Home').'Controller';
+      $controller = ((count($url)) ? $url[0] : 'Home');
+      $controllerName = ucfirst($controller) . 'Controller';
       array_shift($url);
 
-      $defaultAction = ($controller == 'AccountController') ? 'profileAction' : 'indexAction';
+      $defaultAction = ($controller == 'Account') ? 'profile' : 'index';
 
-      $action = (count($url)) ? ($url[0] . 'Action') : $defaultAction;
+      $action = (count($url)) ? ($url[0]) : $defaultAction;
+      $actionName = $action . 'Action';
       array_shift($url);
+
+      $role = Session::currentUser()['role'];
+      if(!$role) $role = 'guest';
+      $target = $controller . '/' . $action;
       
-      $params = (count($url)) ? $url : [];
-
-      $obj = new $controller();
-
-      call_user_func([$obj, $action], $params);
+      if(self::checkAccess($role, $target)) {
+        $params = (count($url)) ? $url : [];
+        $obj = new $controllerName(); 
+        call_user_func([$obj, $actionName], $params);
+      } else {
+        self::redirect('home/index');
+      }
     }
 
     public static function redirect($location) {
