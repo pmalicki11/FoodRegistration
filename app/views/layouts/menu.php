@@ -4,7 +4,7 @@
 
     $menu = json_decode(file_get_contents($menuFile));
     $userRole = 'guest';
-    $currentUser = Account::currentLoggedIn();
+    $currentUser = Session::currentUser();
 
     if($currentUser) {
       $userRole = $currentUser['role'];
@@ -12,7 +12,7 @@
 
     $menuHTML = '<ul>';
     foreach($menu as $menuDesc => $link) {
-      if(Account::hasAccess($userRole, $link)) {
+      if(Router::checkAccess($userRole, $link)) {
         $menuHTML .= '<li><a href="' . PROOT . $link . '">' . $menuDesc;
         if($link == 'account/profile') { $menuHTML .= ' (' . $currentUser['username'] . ')'; }
         $menuHTML .= '</a></li>';
