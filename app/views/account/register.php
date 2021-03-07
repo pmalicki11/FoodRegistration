@@ -6,24 +6,35 @@
 <h1>Register Page</h1>
 <?=($this->errors)?var_dump($this->errors):''; ?>
 
-<form action="register" method="post">
+<div class="row align-items-center justify-content-center">
+  <div class="col-md-6 bg-light p-4">
 
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" value="<?=Request::get('username');?>">
+    <form action="register" method="post" autocomplete="new-password">
 
-  <label for="password">Password:</label>
-  <input type="text" id="password" name="password">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input class="form-control" type="text" id="username" name="username" autofocus value="<?=Request::get('username');?>">
+      </div>
 
-  <label for="repassword">Repeat password:</label>
-  <input type="text" id="repassword" name="repassword">
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input class="form-control" type="password" id="password" name="password"> 
+      </div>
+      
+      <div class="form-group">
+        <label for="repassword">Repeat password:</label>
+        <input class="form-control" type="password" id="repassword" name="repassword">
+      </div>
 
-  <label for="email">Email:</label>
-  <input type="text" id="email" name="email" value="<?=Request::get('email');?>">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input class="form-control" type="text" id="email" name="email" value="<?=Request::get('email');?>">
+      </div>
 
-  <input type="submit" value="Submit">
-
-</form>
-
+      <input class="btn btn-primary" type="submit" value="Submit">    
+    </form>
+  </div>
+</div>
 <?php $this->end(); ?>
 
 
