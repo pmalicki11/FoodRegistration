@@ -1,5 +1,5 @@
 <?php
-  define('PROOT', '/acl/');
+  define('PROOT', '/foodregistration/');
   define('SITENAME', 'MVC FRAMEWORK');
   define('DBHOST', '127.0.0.1');
   define('DBNAME', 'food_registration');
