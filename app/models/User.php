@@ -35,8 +35,8 @@ class User {
   }
 
   public function validateOnLogin() {
-    $this->_validators[] = new LengthValidator('username', $this->username, 4, 50);
-    $this->_validators[] = new LengthValidator('password', $this->password, 4, 50);
+    $this->_validators[] = new LengthValidator('username', $this->username, 1, 50);
+    $this->_validators[] = new LengthValidator('password', $this->password, 1, 50);
     $errors = [];
     foreach($this->_validators as $validator) {
       if($validator->run())

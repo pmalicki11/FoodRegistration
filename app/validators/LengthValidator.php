@@ -15,14 +15,14 @@
     }
 
     public function run() {
-      $result = null;
-
-      if(strlen($this->_data) < $this->_minLength)
-        $result = [$this->_field => $this->_field . ' must be minimum ' . $this->_minLength . 'characters long'];
-
-      if(strlen($this->_data) > $this->_maxLength)
-        $result = [$this->_field => $this->_field . ' must be maximum ' . $this->maxLength . 'characters long'];
-  
-      return $result;
+      if(strlen($this->_data) < $this->_minLength) {
+        if($this->_minLength == 1) {
+          return [$this->_field => $this->_field . ' can\'t be empty'];
+        }
+        return [$this->_field => $this->_field . ' must be minimum ' . $this->_minLength . 'characters long'];
+      } else if(strlen($this->_data) > $this->_maxLength) {
+        return [$this->_field => $this->_field . ' must be maximum ' . $this->maxLength . 'characters long'];
+      }
+      return null;
     }
   }
