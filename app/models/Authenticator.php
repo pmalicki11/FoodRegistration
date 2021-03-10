@@ -8,6 +8,7 @@
     private $_errors;
 
     public function __construct() {
+      $this->_errors = [];
       $this->_db = DB::getInstance();
     }
 
@@ -66,7 +67,7 @@
         $this->_user->setFromDatabase($result[0]);
         return true;
       }
-      $this->_errors = ['username' => 'User does not exist'];
+      $this->_errors = array_merge($this->_errors, ['general' => 'Wrong credentials']); //User does not exist
       return false;
     }
 
@@ -76,7 +77,7 @@
       if($password == $this->_user->password) {
         return true;
       }
-      $this->_errors = ['password' => 'Wrong password'];
+      $this->_errors = array_merge($this->_errors, ['general' => 'Wrong credentials']); //Wrong password
       return false;
     }
     
@@ -84,7 +85,7 @@
       if($this->_user->active) {
         return true;
       }
-      $this->_errors = ['username' => 'User is not active'];
+      $this->_errors = array_merge($this->_errors, ['general' => 'User is not active']);
       return true;
     }
 

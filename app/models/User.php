@@ -40,7 +40,8 @@ class User {
     $errors = [];
     foreach($this->_validators as $validator) {
       if($validator->run())
-        $errors[] = $validator->run();
+      $errors = array_merge($errors, $validator->run()); 
+      //$errors[] = $validator->run();
     }
     return $errors;
   }

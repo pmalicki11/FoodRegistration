@@ -4,10 +4,18 @@
 ?>
 
 <h1>Login Page</h1>
-<?=($this->errors) ? var_dump($this->errors) : ''; ?>
 
 <div class="row align-items-center justify-content-center">
   <div class="col-md-6 bg-light p-4">
+    <h2 class="text-center">Login</h2>
+
+    <?php if(!empty($this->errors)) : ?>
+      <div class="alert alert-danger">
+        <?php foreach($this->errors as $key => $value): ?>
+          <span class="d-block"><?= $value; ?></span>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>    
 
     <form action="login" method="post">
       <div class="form-group">
