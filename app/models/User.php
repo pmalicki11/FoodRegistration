@@ -39,9 +39,9 @@ class User {
     $this->_validators[] = new LengthValidator('password', $this->password, 1, 50);
     $errors = [];
     foreach($this->_validators as $validator) {
-      if($validator->run())
-      $errors = array_merge($errors, $validator->run()); 
-      //$errors[] = $validator->run();
+      if($validator->run()) {
+        $errors = array_merge($errors, $validator->run()); 
+      }
     }
     return $errors;
   }
@@ -54,8 +54,10 @@ class User {
 
     $errors = [];
     foreach($this->_validators as $validator) {
-      if($validator->run())
-        $errors[] = $validator->run();
+      if($validator->run()) {
+        $errors = array_merge($errors, $validator->run());   
+      }
+      //$errors[] = $validator->run();
     }
     return $errors;
   }
