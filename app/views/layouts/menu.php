@@ -10,14 +10,31 @@
       $userRole = $currentUser['role'];
     }
 
-    $menuHTML = '<ul>';
+    $menuHTML = '<ul class="navbar-nav mr-auto">';
     foreach($menu as $menuDesc => $link) {
-      if(Router::checkAccess($userRole, $link)) {
-        $menuHTML .= '<li><a href="' . PROOT . $link . '">' . $menuDesc;
-        if($link == 'account/profile') { $menuHTML .= ' (' . $currentUser['username'] . ')'; }
-        $menuHTML .= '</a></li>';
+      if(Router::checkAccess($userRole, $link) && substr($link, 0, 7) != 'account') {
+        $menuHTML .= '<li class="nav-item"><a class="nav-link" href="' . PROOT . $link . '">' . $menuDesc . '</a></li>';
       }
     }
     $menuHTML .= '</ul>';
-    echo $menuHTML;
+    $menuHTML .= '<ul class="navbar-nav">';
+    foreach($menu as $menuDesc => $link) {
+      if(Router::checkAccess($userRole, $link) && substr($link, 0, 7) == 'account') {
+        $menuHTML .= '<li class="nav-item"><a class="nav-link" href="' . PROOT . $link . '">' . $menuDesc . '</a></li>';
+      }
+    }
+    $menuHTML .= '</ul>';
   }
+?>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="<?= PROOT; ?>home"><?= SITENAME; ?></a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <?= $menuHTML; ?>
+  </div>
+</nav>

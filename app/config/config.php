@@ -1,6 +1,6 @@
 <?php
   define('PROOT', '/foodregistration/');
-  define('SITENAME', 'MVC FRAMEWORK');
+  define('SITENAME', 'Food Registration');
   define('DBHOST', '127.0.0.1');
   define('DBNAME', 'food_registration');
   define('DBUSER', 'FoodRegistrationApp');
