@@ -17,7 +17,7 @@
       $role = Session::currentUser()['role'];
       if(!$role) $role = 'guest';
       $target = $controller . '/' . $action;
-      
+
       if(self::checkAccess($role, $target)) {
         $params = (count($url)) ? $url : [];
         $obj = new $controllerName(); 
@@ -51,5 +51,13 @@
         }
       }
       return false;
+    }
+
+    public static function currentPage() {
+      return $_SERVER['PATH_INFO'];
+    }
+
+    public static function currentModule() {
+      return explode('/', trim($_SERVER['PATH_INFO'], '/'))[0];
     }
   }
