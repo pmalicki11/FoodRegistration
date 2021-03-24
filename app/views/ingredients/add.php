@@ -4,7 +4,7 @@
 ?>
 
 <div class="row align-items-center justify-content-center mt-5">
-  <div class="col-md-6 bg-light p-4">
+  <div class="col-lg-6 bg-light p-4 m-5 border border-secondary rounded">
     <h2 class="text-center">Add ingredient</h2>
 
     <?php if(!empty($this->errors)) : ?>
@@ -24,7 +24,9 @@
         >
       </div>
 
-      <input class="btn btn-primary" type="submit" value="Submit">    
+      <div class="form-group text-center">
+        <input class="btn btn-dark" type="submit" value="Submit">
+      </div>  
     </form>
   </div>
 </div>

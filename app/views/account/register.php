@@ -3,10 +3,8 @@
   $this->start('body');
 ?>
 
-<h1>Register Page</h1>
-
 <div class="row align-items-center justify-content-center">
-  <div class="col-md-6 bg-light p-4">
+  <div class="col-lg-6 bg-light p-4 m-5 border border-secondary rounded">
     <h2 class="text-center">Register</h2>
 
     <?php if(!empty($this->errors)) : ?>
@@ -46,8 +44,10 @@
           type="text" id="email" name="email" value="<?=Request::get('email');?>"
         >
       </div>
-
-      <input class="btn btn-primary" type="submit" value="Submit">    
+      
+      <div class="form-group text-center">
+        <input class="btn btn-dark btn-lg" type="submit" value="Submit">
+      </div>    
     </form>
   </div>
 </div>
