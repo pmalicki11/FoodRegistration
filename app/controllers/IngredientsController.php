@@ -12,4 +12,11 @@
       $this->_view->render('ingredients/index');
     }
 
+    public function addAction() {
+      if(!Request::isEmpty()) {
+        var_dump(Request::get('name'));
+      }
+      $this->_view->render('ingredients/add');
+    }
+
   }
