@@ -9,12 +9,13 @@
     }
 
     public function indexAction() {
+      $engine = new IngredientEngine();
+      $this->_view->ingredients = $engine->getAll();
       $this->_view->render('ingredients/index');
     }
 
     public function addAction() {
       if(!Request::isEmpty()) {
-        var_dump(Request::get('name'));
         $ingredient = new Ingredient();
         $ingredient->setFromRequest();
         $errors = $ingredient->validate();

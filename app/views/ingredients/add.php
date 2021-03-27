@@ -5,7 +5,7 @@
 
 <div class="row align-items-center justify-content-center mt-5">
   <div class="col-lg-6 bg-light p-4 m-5 border border-secondary rounded">
-    <h2 class="text-center">Add ingredient</h2>
+    <h3 class="text-center">Add ingredient</h3>
 
     <?php if(!empty($this->errors)) : ?>
       <div class="alert alert-danger">
@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="name">Name:</label>
         <input class="form-control<?= array_key_exists('name', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="search" id="name" name="name" value="<?=Request::get('name');?>"
+          type="search" id="name" name="name" value="<?=Request::get('name');?>" autofocus
         >
       </div>
 

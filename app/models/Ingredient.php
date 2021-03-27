@@ -19,11 +19,11 @@ class Ingredient {
 
   public function setFromDatabase($data) {
     $this->_id = $data['id'];
-    $this->username = $data['name'];
+    $this->name = $data['name'];
   }
 
   public function validate() {
-    $this->_validators[] = new LengthValidator('name', $this->name, 1, 50);
+    $this->_validators[] = new LengthValidator('name', $this->name, 2, 50);
     $errors = [];
     foreach($this->_validators as $validator) {
       if($validator->run()) {

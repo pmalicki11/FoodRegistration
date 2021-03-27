@@ -38,7 +38,7 @@
   }
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
   <a class="navbar-brand" style="color:#cced00;" href="<?= PROOT; ?>home"><?= SITENAME; ?></a>
   
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">

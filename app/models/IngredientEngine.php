@@ -38,6 +38,17 @@
       return $this->_db->insert('ingredients', $params);
     }
 
+    public function getAll() {
+      $result = $this->_db->select('ingredients', ['Columns' => ['*']]);
+      $ingredientsList = [];
+      foreach($result as $key => $value) {
+        $ingredient = new Ingredient();
+        $ingredient->setFromDatabase($value);
+        array_push($ingredientsList, $ingredient);
+      }
+      return $ingredientsList;
+    }
+
     public function getErrors() {
       return $this->_errors;
     }
