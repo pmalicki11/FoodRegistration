@@ -32,9 +32,13 @@
       $this->_view->render('ingredients/add');
     }
 
-    public function deleteAction($id)
-    {
-      echo 'Remove ingredient with id='.$id;
+    public function deleteAction($id) {
+      $engine = new IngredientEngine();
+      //it should check if the ingredient isn't used in any product
+      if(true) {
+        $engine->delete($id);
+      }
+      Router::redirect('ingredients/index');
     }
 
   }

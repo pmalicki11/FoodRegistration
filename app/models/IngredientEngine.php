@@ -49,6 +49,11 @@
       return $ingredientsList;
     }
 
+    public function delete($id) {      
+      $params = ['Conditions' => ['id' => $id]];
+      $this->_db->delete('ingredients', $params);
+    }
+
     public function getErrors() {
       return $this->_errors;
     }
