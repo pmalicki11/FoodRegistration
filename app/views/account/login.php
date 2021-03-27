@@ -19,7 +19,7 @@
       <div class="form-group">
         <label for="username">Username:</label>
         <input class="form-control<?= array_key_exists('username', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="text" id="username" name="username" autocomplete="new-password" value="<?=Request::get('username');?>"
+          type="text" id="username" name="username" value="<?=Request::get('username');?>"
         />
       </div>
 

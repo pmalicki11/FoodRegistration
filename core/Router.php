@@ -19,7 +19,14 @@
       $target = $controller . '/' . $action;
 
       if(self::checkAccess($role, $target)) {
-        $params = (count($url)) ? $url : [];
+        
+        $params = []; 
+        if(count($url) > 1) {
+          $params = $url;
+        } elseif(count($url) == 1) {
+          $params = $url[0];
+        }
+        
         $obj = new $controllerName(); 
         call_user_func([$obj, $actionName], $params);
       } else {

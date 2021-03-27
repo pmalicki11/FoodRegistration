@@ -32,4 +32,9 @@
       $this->_view->render('ingredients/add');
     }
 
+    public function deleteAction($id)
+    {
+      echo 'Remove ingredient with id='.$id;
+    }
+
   }
