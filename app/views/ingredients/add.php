@@ -1,6 +1,13 @@
 <?php
   $this->setSiteTitle('Ingredients -add');
   $this->start('body');
+
+  if(isset($this->mode)) {
+    $this->mode = PROOT . 'ingredients/edit/' . Request::get('id');
+  } else {
+    $this->mode = PROOT . 'ingredients/add';
+  }
+
 ?>
 
 <div class="row align-items-center justify-content-center mt-5">
@@ -15,7 +22,9 @@
       </div>
     <?php endif; ?>
 
-    <form action="add" method="post">
+    <form action="<?= $this->mode; ?>" method="post">
+
+      <input type="hidden" id="id" name="id" value="<?=Request::get('id');?>">
 
       <div class="form-group">
         <label for="name">Name:</label>

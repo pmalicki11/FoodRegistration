@@ -12,4 +12,11 @@
     public static function get($field) {
       return isset($_REQUEST[$field]) ? $_REQUEST[$field] : null;
     }
+
+    public static function set($fields) {
+      foreach($fields as $field => $value) {
+        $_REQUEST[$field] = $value;
+      }
+    }
+
   }

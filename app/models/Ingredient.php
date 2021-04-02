@@ -14,6 +14,7 @@ class Ingredient {
   }
 
   public function setFromRequest() {
+    $this->_id = Request::get('id');
     $this->name = Request::get('name');
   }
 

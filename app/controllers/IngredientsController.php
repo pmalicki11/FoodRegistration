@@ -32,6 +32,36 @@
       $this->_view->render('ingredients/add');
     }
 
+    public function editAction($id) {
+      if(Request::isEmpty()) {
+        $engine = new IngredientEngine();
+        $ingredient = $engine->getById($id);
+        Request::set([
+          'id' => $ingredient->getId(),
+          'name' => $ingredient->name
+        ]);
+        $this->_view->mode = 'edit';
+        $this->_view->render('ingredients/add');
+
+      } else {
+        $ingredient = new Ingredient();
+        $ingredient->setFromRequest();
+        $errors = $ingredient->validate();
+        if(empty($errors)) {
+          $engine = new IngredientEngine();
+          if($engine->edit($ingredient)) {
+            Router::redirect('ingredients/index');
+          }
+          $errors = $engine->getErrors();
+        }
+        $this->_view->errors = $errors;
+        Request::set(['id' => $ingredient->getId()]);
+        $this->_view->mode = 'edit';
+        $this->_view->render('ingredients/add');
+      }
+    }
+
+
     public function deleteAction($id) {
       $engine = new IngredientEngine();
       //it should check if the ingredient isn't used in any product

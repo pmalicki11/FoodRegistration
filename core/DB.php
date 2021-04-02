@@ -73,6 +73,32 @@
     }
 
 
+    public function update($table, $params) {
+      $columnString = '';
+      $conditions = '';
+      $bindingParams = [];
+      foreach($params['Columns'] as $column => $value) {
+        $columnString .= "`{$column}`=?, ";
+        $bindingParams[] = $value;
+      }
+      $columnString = rtrim($columnString, ', ');
+      
+      if(isset($params['Conditions'])) {
+        foreach($params['Conditions'] as $column => $value) {
+          $conditions .= "`{$column}`=? AND ";
+          $bindingParams[] = $value;
+        }
+        $conditions = rtrim($conditions, ' AND ');
+        if(strlen($conditions) > 0) {
+          $conditions = ' WHERE ' . $conditions;
+        }
+      }
+
+      $query = $this->_pdo->prepare("UPDATE `{$table}` SET {$columnString}{$conditions}");
+      $query->execute($bindingParams);
+    }
+
+
     public function delete($table, $params) {
       $conditions = '';
       foreach($params['Conditions'] as $column => $value) {

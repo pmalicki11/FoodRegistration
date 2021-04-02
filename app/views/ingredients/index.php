@@ -26,7 +26,7 @@
       <tr>
           <td class="col-md-10"><?= $ingredient->name; ?></td>
           <td class="col-md-1 text-center">
-            <a href="#" class="text-body"><i class="bi bi-pencil-square"></i></a>
+            <a href="edit/<?= $ingredient->getId(); ?>" class="text-body"><i class="bi bi-pencil-square"></i></a>
           </td>
           <td class="col-md-1 text-center">
             <a href="delete/<?= $ingredient->getId(); ?>" class="text-danger"><i class="bi bi-x-square"></i></a>

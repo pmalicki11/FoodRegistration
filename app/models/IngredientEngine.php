@@ -18,6 +18,32 @@
       }
       return false;
     }
+
+    public function edit($ingredient) {
+      // check if name exists in database for other ingredient
+      // SELECT * FROM ingredients WHERE id != $id AND name = $name
+      $result = $this->_db->select('ingredients',[
+        'Columns' => ['*'],
+        'Conditions' => [
+          'id' => ['!=', $ingredient->getId()],
+          'name' => ['=', $ingredient->name]
+        ]
+      ]);
+      
+      if(count($result) > 0) {
+        $this->_errors = ['name' => 'Ingredient already exists'];
+        return false;
+      }
+      
+      // Update
+    
+      $this->_db->update('ingredients', [
+        'Columns' => ['name' => $ingredient->name],
+        'Conditions' => ['id' => $ingredient->getId()]
+      ]);
+
+      return true;  
+    }
     
     private function _ingredientExists() {
       $conditions = [];
@@ -47,6 +73,21 @@
         array_push($ingredientsList, $ingredient);
       }
       return $ingredientsList;
+    }
+
+    public function getById($id) {
+      $result = $this->_db->select('ingredients',[
+        'Columns' => ['*'],
+        'Conditions' => ['id' => ['=', $id]]
+      ]);
+
+      if(count($result) == 1) {
+        $result = $result[0];
+        $ingredient = new Ingredient();
+        $ingredient->setFromDatabase($result);
+        return $ingredient;
+      }
+      return null;
     }
 
     public function delete($id) {      
