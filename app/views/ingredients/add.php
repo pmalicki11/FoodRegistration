@@ -1,5 +1,5 @@
 <?php
-  $this->setSiteTitle('Ingredients -add');
+  $this->setSiteTitle('Ingredients');
   $this->start('body');
 
   if(isset($this->mode)) {
