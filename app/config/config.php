@@ -7,3 +7,4 @@
   define('DBPASSWORD', 'Iwanteatyou_123');
   define('REMEMBER_ME_COOKIE_NAME', '0249f49bc34492ae07e2f52146c8192b');
   define('COOKIE_DURABILITY', 2630000); // 1 month
+  define('tst', 'tst');
