@@ -2,6 +2,7 @@
     "Home Page" : "home",
     "Products Base" : "products/index",
     "Ingredients Base" : "ingredients/index",
+    "Test" : "ingredients/index",
     "Log In" : "account/login",
     "Register" : "account/register",
     "My Account" : "account/profile",
