@@ -36,7 +36,6 @@
       }
       
       // Update
-    
       $this->_db->update('ingredients', [
         'Columns' => ['name' => $ingredient->name],
         'Conditions' => ['id' => $ingredient->getId()]

@@ -4,7 +4,7 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond $1 !^(config|core|css|js|fonts|robots\.txt)
+RewriteCond $1 !^(config|core|vendor|css|js|fonts|robots\.txt)
 AddType text/css .css
 
 RewriteRule ^(.+)$ index.php/$1 [L]
