@@ -89,6 +89,25 @@
       return null;
     }
 
+    public function getByName($name) {
+      $compareType = strpos($name, '%') ? 'LIKE' : '=';
+      $results = $this->_db->select('ingredients',[
+        'Columns' => ['*'],
+        'Conditions' => ['name' => [$compareType, $name]]
+      ]);
+
+      if(count($results) > 0) {
+        $ingredientsList = [];
+        foreach($results as $result) {
+          $ingredient = new Ingredient();
+          $ingredient->setFromDatabase($result);
+          array_push($ingredientsList, $ingredient);
+        }
+        return $ingredientsList;
+      }
+      return null;
+    }
+
     public function delete($id) {      
       $params = ['Conditions' => ['id' => $id]];
       $this->_db->delete('ingredients', $params);

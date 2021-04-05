@@ -69,7 +69,11 @@
       $columnString = rtrim($columnString, ',');
       $valueString = rtrim($valueString, ',');
       $query = $this->_pdo->prepare("INSERT INTO `{$table}` ({$columnString}) VALUES ({$valueString})");
-      return $query->execute(array_values($params));
+      if($query->execute(array_values($params))) {
+        $lastId = $this->_pdo->lastInsertId();
+        return ($lastId != 0) ? $lastId : true;
+      }
+      return false;
     }
 
 

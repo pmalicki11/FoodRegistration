@@ -19,9 +19,19 @@
         $product = new Product();
         $product->setFromRequest();
         $errors = $product->validate();
+        $ingredients = [];
+        
         if(empty($errors)) {
+          if($ingredientNames = Request::get('multiselectOption')) {
+            $ingredientEngine = new IngredientEngine();
+            foreach($ingredientNames as $ingredientName) {
+              $ingredient = $ingredientEngine->getByName($ingredientName);
+              $ingredients = array_merge($ingredients, $ingredient);
+            }
+          }
+          
           $engine = new ProductEngine();
-          if($engine->add($product)) {
+          if($engine->add($product, $ingredients)) {
             Router::redirect('products/index');
           }
           $errors = $engine->getErrors();

@@ -4,18 +4,23 @@
 
     private $_db;
     private $_product;
+    private $_ingredients;
     private $_errors;
 
     public function __construct() {
       $this->_errors = [];
+      $this->_ingredients = [];
       $this->_db = DB::getInstance();
     }
 
 
-    public function add($product) {
+    public function add($product, $ingredients) {
       $this->_product = $product;
-      if(!$this->_productExists()) {
-        return $this->_saveProduct();
+      $this->_ingredients = $ingredients;
+      if(!$this->_productExists() && $this->_hasIngredients()) {
+        if($productId = $this->_saveProduct()) {
+          return $this->_saveProductIngredients($productId);
+        }
       }
       return false;
     }
@@ -38,6 +43,14 @@
       }
     }
 
+    private function _hasIngredients() {
+      if(count($this->_ingredients) == 0) {
+        $this->_errors = ['ingredients' => 'Product must contain at least one ingredient'];
+        return false;
+      }
+      return true;
+    }
+
     private function _saveProduct() {
       $params = [
         'name' => $this->_product->name,
@@ -49,6 +62,18 @@
         'protein' => $this->_product->protein
       ];
       return $this->_db->insert('products', $params);
+    }
+
+    private function _saveProductIngredients($productId) {
+      $result = true;
+      foreach($this->_ingredients as $ingredient) {
+        $params = [
+          'product_id' => $productId,
+          'ingredient_id' => $ingredient->getId()
+        ];
+        $result = ($result && $this->_db->insert('product_ingredients', $params));
+      }
+      return $result;
     }
 
     public function getAll() {

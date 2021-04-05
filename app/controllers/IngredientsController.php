@@ -61,7 +61,6 @@
       }
     }
 
-
     public function deleteAction($id) {
       $engine = new IngredientEngine();
       //it should check if the ingredient isn't used in any product
@@ -71,4 +70,28 @@
       Router::redirect('ingredients/index');
     }
 
+    public function ajaxAction() {
+      $namePart = $_REQUEST["namepart"];
+      $engine = new IngredientEngine();
+      $ingredients = $engine->getByName($namePart.'%');
+
+      if($ingredients) {
+        $jsonOut = '[';
+        header("Content-Type: application/json");
+        header("Access-Control-Allow-Origin: *");
+        foreach($ingredients as $ingredient) {
+          //$jsonOut .= '{'; 
+          //$jsonOut .= '"id" : "'.$ingredient->getId().'",'; 
+          //$jsonOut .= '"name" : "'.$ingredient->name.'"';
+          //$jsonOut .= '},';
+          $jsonOut .= '"'.$ingredient->name.'",';
+        }
+        $jsonOut = rtrim($jsonOut, ',');
+        $jsonOut .= ']';
+        echo $jsonOut;
+        die();
+      } else {
+        echo '';
+      }
+   }
   }
