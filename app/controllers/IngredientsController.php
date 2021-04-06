@@ -77,8 +77,6 @@
 
       if($ingredients) {
         $jsonOut = '[';
-        header("Content-Type: application/json");
-        header("Access-Control-Allow-Origin: *");
         foreach($ingredients as $ingredient) {
           //$jsonOut .= '{'; 
           //$jsonOut .= '"id" : "'.$ingredient->getId().'",'; 
@@ -88,6 +86,8 @@
         }
         $jsonOut = rtrim($jsonOut, ',');
         $jsonOut .= ']';
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json");
         echo $jsonOut;
         die();
       } else {
