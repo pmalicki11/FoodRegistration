@@ -90,9 +90,7 @@
         $jsonOut = rtrim($jsonOut, ',');
         $jsonOut .= ']';
       }
-      ob_start();
       echo $jsonOut;
-      ob_flush ();
       exit;
    }
   }
