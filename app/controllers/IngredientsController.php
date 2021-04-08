@@ -77,9 +77,9 @@
       $namePart = $_REQUEST["namepart"];
       $engine = new IngredientEngine();
       $ingredients = $engine->getByName($namePart.'%');
-
+      $jsonOut = '';
       if($ingredients) {
-        $jsonOut = '[';
+        $jsonOut .= '[';
         foreach($ingredients as $ingredient) {
           //$jsonOut .= '{'; 
           //$jsonOut .= '"id" : "'.$ingredient->getId().'",'; 
@@ -89,10 +89,10 @@
         }
         $jsonOut = rtrim($jsonOut, ',');
         $jsonOut .= ']';
-        echo $jsonOut;
-      } else {
-        echo '';
       }
+      ob_start();
+      echo $jsonOut;
+      ob_flush ();
       exit;
    }
   }
