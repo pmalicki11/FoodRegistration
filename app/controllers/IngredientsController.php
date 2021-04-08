@@ -81,16 +81,11 @@
       if($ingredients) {
         $jsonOut .= '[';
         foreach($ingredients as $ingredient) {
-          //$jsonOut .= '{'; 
-          //$jsonOut .= '"id" : "'.$ingredient->getId().'",'; 
-          //$jsonOut .= '"name" : "'.$ingredient->name.'"';
-          //$jsonOut .= '},';
           $jsonOut .= '"'.$ingredient->name.'",';
         }
         $jsonOut = rtrim($jsonOut, ',');
         $jsonOut .= ']';
       }
       echo $jsonOut;
-      exit;
    }
   }
