@@ -110,7 +110,7 @@ class MultiselectAutocomplete {
 
   requestItems(inputValue, requestURL, inputValueAsRequestPart, filterRequestDataByInput) {
     const requestString = inputValueAsRequestPart ? requestURL + inputValue : requestURL;
-    fetch(requestString)
+    fetch(requestString, {mode: "no-cors"})
     .then(response => response.json())
     .then(data => {
       let filteredData = [];
