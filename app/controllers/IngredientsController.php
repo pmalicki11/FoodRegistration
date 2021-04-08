@@ -71,6 +71,9 @@
     }
 
     public function ajaxAction() {
+      header("Access-Control-Allow-Origin: *");
+      header("Content-Type: application/json");
+
       $namePart = $_REQUEST["namepart"];
       $engine = new IngredientEngine();
       $ingredients = $engine->getByName($namePart.'%');
@@ -86,8 +89,6 @@
         }
         $jsonOut = rtrim($jsonOut, ',');
         $jsonOut .= ']';
-        header("Access-Control-Allow-Origin: *");
-        header("Content-Type: application/json");
         echo $jsonOut;
         die();
       } else {
