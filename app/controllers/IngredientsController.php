@@ -93,5 +93,6 @@
       } else {
         echo '';
       }
+      exit;
    }
   }
