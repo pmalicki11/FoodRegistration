@@ -90,7 +90,6 @@
         $jsonOut = rtrim($jsonOut, ',');
         $jsonOut .= ']';
         echo $jsonOut;
-        die();
       } else {
         echo '';
       }
