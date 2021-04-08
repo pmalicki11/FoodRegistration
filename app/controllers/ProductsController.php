@@ -42,4 +42,11 @@
       $this->_view->render('products/add');
     }
 
+    public function showAction($id) {
+      $productengine = new ProductEngine();
+      $ingredientEngine = new IngredientEngine();
+      $this->_view->product = $productengine->getById($id);
+      $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
+      $this->_view->render('products/show');
+    }
   }

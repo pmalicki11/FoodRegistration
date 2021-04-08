@@ -74,6 +74,23 @@
       return $ingredientsList;
     }
 
+    public function getAllForProduct($productId) {
+      $ingredientIds = $this->_db->select('product_ingredients', [
+        'Columns' => ['ingredient_id'],
+        'Conditions' => ['product_id' => ['=', $productId]]
+      ]);
+
+
+
+      $ingredientsList = [];
+      foreach($ingredientIds as $value) {
+        $ingredientId = $value['ingredient_id'];
+        $ingredient = $this->getById($ingredientId);
+        array_push($ingredientsList, $ingredient);
+      }
+      return $ingredientsList;
+    }
+
     public function getById($id) {
       $result = $this->_db->select('ingredients',[
         'Columns' => ['*'],

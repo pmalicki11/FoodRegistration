@@ -30,7 +30,9 @@
     <tbody>
       <?php foreach($this->products as $product): ?>
       <tr>
-          <td class="col-md-4"><?= $product->name; ?></td>
+          <td class="col-md-4">
+            <a href="show/<?= $product->getId(); ?>"><?= $product->name; ?></a>
+          </td>
           <td class="col-md-4"><?= $product->producer; ?></td> 
           <td class="col-md-1"><?= $product->portion; ?></td>
           <td class="col-md-1"><?= $product->energy; ?></td>
