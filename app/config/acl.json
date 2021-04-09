@@ -13,7 +13,8 @@
       "profile",
       "logout"
     ],
-    "products" : ["*"]
+    "products" : ["*"],
+    "ingredients" : ["ajax"]
   },
   "admin" : {
     "home" : ["*"],
