@@ -67,4 +67,15 @@ class Product {
     ];
   }
 
+  public function nutritionInfo() {
+    return [
+      'producer' => $this->producer,
+      'portion' => $this->portion,
+      'energy' => $this->energy,
+      'fat' => $this->fat,
+      'carbohydrates' => $this->carbohydrates,
+      'protein' => $this->protein
+    ];
+  }
+
 }
