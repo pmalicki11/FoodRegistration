@@ -9,7 +9,7 @@
     <h3><?= $this->product->name; ?></h3>
   </div>
   <div class="row">
-    <div class="col-md-4 p-2">
+    <div class="col-lg-5 p-2">
       <h5 class="p-2">Nutrition info</h5>
       <table class="table">
         <tbody>
@@ -22,11 +22,11 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-8 p-2">
+    <div class="col-lg-7 p-2">
       <h5 class="p-2">Ingredients</h5>
-      <ul class="list-group list-group-flush">
+      <ul class="list-unstyled">
         <?php foreach($this->ingredients as $ingredient): ?>
-          <li class="list-group-item"><?= $ingredient->name; ?></li>
+          <li><i class="bi bi-arrow-right-short"></i><?= $ingredient->name; ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
