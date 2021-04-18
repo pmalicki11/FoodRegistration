@@ -50,35 +50,35 @@
       <div class="form-group">
         <label for="portion">Portion:</label>
         <input class="form-control<?= array_key_exists('portion', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="text" id="portion" name="portion" value="<?=Request::get('portion');?>"
+          type="text" id="portion" name="portion" value="<?=Request::get('portion');?>" placeholder="g"
         >
       </div>
 
       <div class="form-group">
         <label for="energy">Energy:</label>
         <input class="form-control<?= array_key_exists('energy', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="text" id="energy" name="energy" value="<?=Request::get('energy');?>"
+          type="text" id="energy" name="energy" value="<?=Request::get('energy');?>" placeholder="kcal"
         >
       </div>
 
       <div class="form-group">
         <label for="fat">Fat:</label>
         <input class="form-control<?= array_key_exists('fat', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="text" id="fat" name="fat" value="<?=Request::get('fat');?>"
+          type="text" id="fat" name="fat" value="<?=Request::get('fat');?>" placeholder="g/100g"
         >
       </div>
 
       <div class="form-group">
         <label for="carbohydrates">Carbohydrates:</label>
         <input class="form-control<?= array_key_exists('carbohydrates', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="text" id="carbohydrates" name="carbohydrates" value="<?=Request::get('carbohydrates');?>"
+          type="text" id="carbohydrates" name="carbohydrates" value="<?=Request::get('carbohydrates');?>" placeholder="g/100g"
         >
       </div>
 
       <div class="form-group">
         <label for="protein">Protein:</label>
         <input class="form-control<?= array_key_exists('protein', $this->errors) ? ' is-invalid' : ''; ?>"
-          type="text" id="protein" name="protein" value="<?=Request::get('protein');?>"
+          type="text" id="protein" name="protein" value="<?=Request::get('protein');?>" placeholder="g/100g"
         >
       </div>
 

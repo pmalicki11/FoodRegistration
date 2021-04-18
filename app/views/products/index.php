@@ -15,15 +15,15 @@
     
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Producer</th>
-        <th scope="col">Portion</th>
-        <th scope="col">Energy</th>
-        <th scope="col">Fat</th>
-        <th scope="col">Carbohydrates</th>
-        <th scope="col">Protein</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
+        <th class="align-middle" scope="col">Name</th>
+        <th class="align-middle" scope="col">Producer</th>
+        <th class="align-middle text-center" scope="col">Portion <small>[g]</small></th>
+        <th class="align-middle text-center" scope="col">Energy <small>[kcal]</small></th>
+        <th class="align-middle text-center" scope="col">Fat <small>[g/100g]</small></th>
+        <th class="align-middle text-center" scope="col">Carbs <small>[g/100g]</small></th>
+        <th class="align-middle text-center" scope="col">Protein <small>[g/100g]</small></th>
+        <th class="align-middle" scope="col"></th>
+        <th class="align-middle" scope="col"></th>
       </tr>
     </thead>
     
@@ -34,11 +34,11 @@
             <a href="show/<?= $product->getId(); ?>"><?= $product->name; ?></a>
           </td>
           <td class="col-md-4"><?= $product->producer; ?></td> 
-          <td class="col-md-1"><?= $product->portion; ?></td>
-          <td class="col-md-1"><?= $product->energy; ?></td>
-          <td class="col-md-1"><?= $product->fat; ?></td>
-          <td class="col-md-1"><?= $product->carbohydrates; ?></td>
-          <td class="col-md-1"><?= $product->protein; ?></td>
+          <td class="text-center"><?= $product->portion; ?></td>
+          <td class="text-center"><?= $product->energy; ?></td>
+          <td class="text-center"><?= $product->fat; ?></td>
+          <td class="text-center"><?= $product->carbohydrates; ?></td>
+          <td class="text-center"><?= $product->protein; ?></td>
           <td class="col-md-1 text-center">
             <a href="edit/<?= $product->getId(); ?>" class="text-body"><i class="bi bi-pencil-square"></i></a>
           </td>
