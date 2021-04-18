@@ -102,6 +102,23 @@
       return null;
     }
 
+    public function getByIngredientId($id) {
+      $result = $this->_db->select('product_ingredients',[
+        'Columns' => ['*'],
+        'Conditions' => ['ingredient_id' => ['=', $id]]
+      ]);
+      
+      $productsList = [];
+      if(count($result) > 0) {
+        foreach($result as $key => $value) {
+          $product = $this->getById($value['product_id']);
+          array_push($productsList, $product);
+        }
+        return $productsList;
+      }
+      return null;
+    }
+
     public function delete($id) {      
       $params = ['Conditions' => ['id' => $id]];
       $this->_db->delete('products', $params);

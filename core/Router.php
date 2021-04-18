@@ -36,7 +36,6 @@
 
     public static function redirect($location) {
       header('Location: '. PROOT . $location);
-      die();
     }
 
     public static function checkAccess($role, $target) {

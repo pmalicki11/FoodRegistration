@@ -80,8 +80,6 @@
         'Conditions' => ['product_id' => ['=', $productId]]
       ]);
 
-
-
       $ingredientsList = [];
       foreach($ingredientIds as $value) {
         $ingredientId = $value['ingredient_id'];

@@ -62,10 +62,14 @@
     }
 
     public function deleteAction($id) {
-      $engine = new IngredientEngine();
+      $ingredientEngine = new IngredientEngine();
+      $productEngine = new ProductEngine();
       //it should check if the ingredient isn't used in any product
-      if(true) {
-        $engine->delete($id);
+      
+      if($productEngine->getByIngredientId($id) == null) {
+        $ingredientEngine->delete($id);
+      } else {
+        Session::setField(['ingDelErr' => 'Can not delete! Ingredient is referenced by at least one product.']);
       }
       Router::redirect('ingredients/index');
     }

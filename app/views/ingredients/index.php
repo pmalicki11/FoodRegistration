@@ -3,14 +3,20 @@
   $this->start('body');
 ?>
 
-<div class="px-5">
+<div class="px-2">
   <h3 class="my-4">Ingredients</h3>
+
+  <?php if($err = Session::getField('ingDelErr')) : ?>
+    <div class="alert alert-danger">
+      <span class="d-block"><?= $err ?></span>
+    </div>
+  <?php endif; ?>
 
   <a href="<?= PROOT; ?>ingredients/add" class="btn btn-outline-dark my-2" role="button">
     <i class="bi bi-plus"></i>
     <span>Add</span>
   </a>
-  
+
   <table class="table table-striped">
     
     <thead class="thead-dark">
@@ -37,4 +43,7 @@
   </table>
 </div>
 
-<?php $this->end(); ?>
+<?php
+  Session::unsetField('ingDelErr');
+  $this->end();
+?>
