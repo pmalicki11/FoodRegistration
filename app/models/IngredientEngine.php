@@ -63,8 +63,17 @@
       return $this->_db->insert('ingredients', $params);
     }
 
-    public function getAll() {
-      $result = $this->_db->select('ingredients', ['Columns' => ['*']]);
+    public function getAll($rowCount = '*', $offset = 0) {
+      $params = ['Columns' => ['*']];
+      if($rowCount != '*') {
+        if($offset != 0) {
+          $params = array_merge($params, ['Limit' => [$offset, $rowCount]]);
+        } else {
+          $params = array_merge($params, ['Limit' => [$rowCount]]);
+        }
+      }
+
+      $result = $this->_db->select('ingredients', $params);
       $ingredientsList = [];
       foreach($result as $key => $value) {
         $ingredient = new Ingredient();

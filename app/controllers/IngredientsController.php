@@ -9,8 +9,15 @@
     }
 
     public function indexAction() {
+      $page = (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0) ? $_REQUEST["page"] : 1;
+      $rowCount = 10;
+      $offset = 0;
+      if($page != 1) {
+        $offset = $page * $rowCount - $rowCount + 1;
+      }
+
       $engine = new IngredientEngine();
-      $this->_view->ingredients = $engine->getAll();
+      $this->_view->ingredients = $engine->getAll($rowCount, $offset);
       $this->_view->render('ingredients/index');
     }
 

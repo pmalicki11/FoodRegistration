@@ -31,6 +31,7 @@
     public function select($table, $params) {
       $columnString = '';
       $conditions = '';
+      $limit = '';
       $bindingParams = [];
       foreach($params['Columns'] as $column) {
         if($column == '*') {
@@ -41,6 +42,7 @@
         }
       }
       $columnString = rtrim($columnString, ',');
+
       if(isset($params['Conditions'])) {
         foreach($params['Conditions'] as $column => $value) {
           $conditions .= "`{$column}` {$value[0]} ? AND ";
@@ -51,8 +53,17 @@
           $conditions = ' WHERE ' . $conditions;
         }
       }
+      
+      if(isset($params['Limit'])) {
+        $limit .= "LIMIT ";
+        foreach($params['Limit'] as $value) {
+          $limit .= $value . ', ';
+          $bindingParams[] = $value;
+        }
+        $limit = rtrim($limit, ', ');
+      }
 
-      $query = $this->_pdo->prepare("SELECT {$columnString} FROM `{$table}` {$conditions}");
+      $query = $this->_pdo->prepare("SELECT {$columnString} FROM `{$table}` {$conditions} {$limit}");
       $query->execute($bindingParams);
       $result = $query->fetchAll(PDO::FETCH_NAMED);
       return $result;
