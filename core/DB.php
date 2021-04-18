@@ -9,7 +9,7 @@
     private function __construct() {
       try {
         $this->_pdo = new PDO(
-          'mysql:host='. DBHOST .';dbname=' . DBNAME,
+          'mysql:host='. DBHOST .';port=3306;dbname=' . DBNAME,
           DBUSER,
           DBPASSWORD,
           [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]

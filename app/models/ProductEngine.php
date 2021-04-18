@@ -121,7 +121,14 @@
 
     public function delete($id) {      
       $params = ['Conditions' => ['id' => $id]];
-      $this->_db->delete('products', $params);
+      if($this->_db->delete('products', $params)) {
+        $this->_deleteProductIngredients($id);
+      }
+    }
+
+    private function _deleteProductIngredients($productId) {
+      $params = ['Conditions' => ['product_id' => $productId]];
+      $this->_db->delete('product_ingredients', $params);
     }
 
     public function getErrors() {

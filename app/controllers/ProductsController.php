@@ -43,10 +43,16 @@
     }
 
     public function showAction($id) {
-      $productengine = new ProductEngine();
+      $productEngine = new ProductEngine();
       $ingredientEngine = new IngredientEngine();
-      $this->_view->product = $productengine->getById($id);
+      $this->_view->product = $productEngine->getById($id);
       $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
       $this->_view->render('products/show');
+    }
+
+    public function deleteAction($id) {
+      $productEngine = new ProductEngine();
+      $productEngine->delete($id);
+      Router::redirect('products/index');
     }
   }
