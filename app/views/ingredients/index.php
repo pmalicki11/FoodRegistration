@@ -41,6 +41,21 @@
       <?php endforeach; ?>
     </tbody>
   </table>
+
+  <?php if($this->totalPages > 1) : ?>
+    <ul class="pagination justify-content-center">
+
+    <?php for($i = 1; $i <= $this->totalPages; $i++) {?>
+      <li class="page-item">
+        <a class="page-link<?= ($i == $this->currentPage) ? ' bg-dark text-light' : '';?>"
+          href="<?=PROOT;?>ingredients/index?page=<?=$i;?>"><?=$i;?>
+        </a>
+      </li>
+    <?php } ?>
+    
+    </ul>
+  <?php endif; ?>
+
 </div>
 
 <?php

@@ -18,6 +18,9 @@
 
       $engine = new IngredientEngine();
       $this->_view->ingredients = $engine->getAll($rowCount, $offset);
+      $ingredientsCount = count($engine->getAll());
+      $this->_view->totalPages = ceil(($ingredientsCount - 1) / $rowCount);
+      $this->_view->currentPage = $page;
       $this->_view->render('ingredients/index');
     }
 
