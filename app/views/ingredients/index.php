@@ -44,15 +44,47 @@
 
   <?php if($this->totalPages > 1) : ?>
     <ul class="pagination justify-content-center">
-
-    <?php for($i = 1; $i <= $this->totalPages; $i++) {?>
-      <li class="page-item">
-        <a class="page-link<?= ($i == $this->currentPage) ? ' bg-dark text-light' : '';?>"
-          href="<?=PROOT;?>ingredients/index?page=<?=$i;?>"><?=$i;?>
-        </a>
-      </li>
-    <?php } ?>
     
+    <li class="page-item<?= ($this->currentPage == 1) ? ' disabled' : ''; ?>">
+      <a class="page-link" href="<?=PROOT;?>ingredients/index?page=<?= $this->currentPage - 1; ?>"><- Previous</a>
+    </li>
+
+      <?php if($this->totalPages > 5 && $this->currentPage > 2) : ?>
+        <li class="page-item disabled"><a class="page-link" href="3">...</a></li>
+      <?php endif; ?>
+
+      
+      <?php
+        $startPage = 1;
+        $endPage = $this->totalPages;
+        if($this->totalPages > 5) {
+          if($this->currentPage > 2 && ($this->totalPages - $this->currentPage) > 2) {
+            $startPage = $this->currentPage - 1;
+            $endPage = $this->currentPage + 1;
+          } elseif($this->currentPage > 2) {
+            $startPage = $this->totalPages - 3;
+          } elseif(($this->totalPages - $this->currentPage) > 2) {
+            $endPage = 4;
+          }
+        }
+
+        for($i = $startPage; $i <= $endPage; $i++) {
+      ?>
+        <li class="page-item">
+          <a class="page-link<?= ($i == $this->currentPage) ? ' bg-dark text-light' : '';?>"
+            href="<?=PROOT;?>ingredients/index?page=<?=$i;?>"><?=$i;?>
+          </a>
+        </li>
+      <?php } ?>
+    
+      <?php if($this->totalPages > 5 && $this->totalPages - $this->currentPage > 2) : ?>
+        <li class="page-item disabled"><a class="page-link" href="3">...</a></li>
+      <?php endif; ?>
+
+    <li class="page-item<?= ($this->currentPage == $this->totalPages) ? ' disabled' : ''; ?>">
+      <a class="page-link" href="<?=PROOT;?>ingredients/index?page=<?= $this->currentPage + 1; ?>">Next -></a>
+    </li>
+
     </ul>
   <?php endif; ?>
 

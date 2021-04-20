@@ -10,7 +10,7 @@
 
     public function indexAction() {
       $page = (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0) ? $_REQUEST["page"] : 1;
-      $rowCount = 10;
+      $rowCount = 12;
       $offset = 0;
       if($page != 1) {
         $offset = $page * $rowCount - $rowCount + 1;
