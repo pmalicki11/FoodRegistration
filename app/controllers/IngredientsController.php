@@ -91,15 +91,12 @@
       $namePart = $_REQUEST["namepart"];
       $engine = new IngredientEngine();
       $ingredients = $engine->getByName($namePart.'%');
-      $jsonOut = '';
+      $names = [];
       if($ingredients) {
-        $jsonOut .= '[';
         foreach($ingredients as $ingredient) {
-          $jsonOut .= '"'.$ingredient->name.'",';
+          $names[] = $ingredient->name;
         }
-        $jsonOut = rtrim($jsonOut, ',');
-        $jsonOut .= ']';
       }
-      echo $jsonOut;
+      echo json_encode(array_values($names));
    }
   }
