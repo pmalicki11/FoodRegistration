@@ -29,17 +29,50 @@
               $ingredients = array_merge($ingredients, $ingredient);
             }
           }
-          
           $engine = new ProductEngine();
           if($engine->add($product, $ingredients)) {
             Router::redirect('products/index');
           }
           $errors = $engine->getErrors();
         }
-
         $this->_view->errors = $errors;
       }
       $this->_view->render('products/add');
+    }
+
+    public function editAction($id) {
+      if(Request::isEmpty()) {
+        $engine = new ProductEngine();
+        $product = $engine->getById($id);
+        Request::set([
+          'id' => $product->getId(),
+          'name' => $product->name,
+          'producer' => $product->producer,
+          'portion' => $product->portion,
+          'energy' => $product->energy,
+          'fat' => $product->fat,
+          'carbohydrates' => $product->carbohydrates,
+          'protein' => $product->protein
+        ]);
+        $this->_view->mode = 'edit';
+        $this->_view->render('products/add');
+
+      } /*else {
+        $product = new Product();
+        $product->setFromRequest();
+        $errors = $product->validate();
+        if(empty($errors)) {
+          $engine = new ProductEngine();
+          if($engine->edit($product)) {
+            Router::redirect('products/index');
+          }
+          $errors = $engine->getErrors();
+        }
+        $this->_view->errors = $errors;
+        Request::set(['id' => $product->getId()]);
+        $this->_view->mode = 'edit';
+        $this->_view->render('products/add');
+      }*/
     }
 
     public function showAction($id) {

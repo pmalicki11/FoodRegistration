@@ -74,8 +74,6 @@
     public function deleteAction($id) {
       $ingredientEngine = new IngredientEngine();
       $productEngine = new ProductEngine();
-      //it should check if the ingredient isn't used in any product
-      
       if($productEngine->getByIngredientId($id) == null) {
         $ingredientEngine->delete($id);
       } else {

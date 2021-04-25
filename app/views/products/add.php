@@ -3,7 +3,7 @@
   $this->start('head');
 ?>
 
-  <link rel="stylesheet" type="text/css" href="<?= '..'.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'css'.DS.'multiselect-autocomplete.css'; ?>">
+  <link rel="stylesheet" type="text/css" href="<?= PROOT.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'css'.DS.'multiselect-autocomplete.css'; ?>">
 
 <?php
   $this->end();
@@ -89,9 +89,10 @@
 
       <div class="form-group text-center">
         <input class="btn btn-dark" type="submit" value="Submit">
-      </div>  
+      </div> 
+
     </form>
   </div>
 </div>
-<script src="<?= '..'.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'js'.DS.'multiselect-autocomplete.js'; ?>"></script>
+<script src="<?= PROOT.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'js'.DS.'multiselect-autocomplete.js'; ?>"></script>
 <?php $this->end(); ?>
