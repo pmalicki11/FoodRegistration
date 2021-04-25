@@ -36,7 +36,6 @@
           }
           $errors = $engine->getErrors();
         }
-
         $this->_view->errors = $errors;
       }
       $this->_view->render('ingredients/add');

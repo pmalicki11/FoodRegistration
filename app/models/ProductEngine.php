@@ -25,8 +25,38 @@
       return false;
     }
 
-    public function edit($product) {
-      //TODO
+    public function edit($product, $ingredients) {
+      // check if name exists in database for other ingredient
+      // SELECT * FROM ingredients WHERE id != $id AND name = $name
+      $result = $this->_db->select('products',[
+        'Columns' => ['*'],
+        'Conditions' => [
+          'id' => ['!=', $product->getId()],
+          'name' => ['=', $product->name]
+        ]
+      ]);
+
+      if(count($result) > 0) {
+        $this->_errors = ['name' => 'Ingredient already exists'];
+        return false;
+      }
+
+      // Update products table
+      $this->_db->update('products', [
+        'Columns' => [
+          'name' => $product->name,
+          'producer' => $product->producer,
+          'portion' => $product->portion,
+          'energy' => $product->energy,
+          'fat' => $product->fat,
+          'carbohydrates' => $product->carbohydrates,
+          'protein' => $product->protein
+        ],
+        'Conditions' => ['id' => $product->getId()]
+      ]);
+
+
+      return true;
     }
 
     private function _productExists() {

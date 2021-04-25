@@ -66,13 +66,22 @@
         $this->_view->mode = 'edit';
         $this->_view->render('products/add');
 
-      } /*else {
+      } else {
         $product = new Product();
         $product->setFromRequest();
         $errors = $product->validate();
+        $ingredients = [];
+        
         if(empty($errors)) {
+          if($ingredientNames = Request::get('multiselectOption')) {
+            $ingredientEngine = new IngredientEngine();
+            foreach($ingredientNames as $ingredientName) {
+              $ingredient = $ingredientEngine->getByName($ingredientName);
+              $ingredients = array_merge($ingredients, $ingredient);
+            }
+          }
           $engine = new ProductEngine();
-          if($engine->edit($product)) {
+          if($engine->edit($product, $ingredients)) {
             Router::redirect('products/index');
           }
           $errors = $engine->getErrors();
@@ -81,7 +90,7 @@
         Request::set(['id' => $product->getId()]);
         $this->_view->mode = 'edit';
         $this->_view->render('products/add');
-      }*/
+      }
     }
 
     public function showAction($id) {
