@@ -82,11 +82,17 @@
         >
       </div>
 
+      <?php if($options = Request::get('multiselectOption')) : ?>
+        <div id="initOptions" class="d-none multiselect-autocomplete-init-options">
+          <?= json_encode(array_values($options)); ?>
+        </div>
+      <?php endif; ?>
+
       <div class="form-group">
         <label for="ingeredients">Ingredients:</label>
         <div id='ingeredients' class="multiselect-autocomplete"></div>
       </div>
-
+      
       <div class="form-group text-center">
         <input class="btn btn-dark" type="submit" value="Submit">
       </div> 

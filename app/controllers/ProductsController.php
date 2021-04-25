@@ -42,8 +42,16 @@
 
     public function editAction($id) {
       if(Request::isEmpty()) {
-        $engine = new ProductEngine();
-        $product = $engine->getById($id);
+        $productEngine = new ProductEngine();
+        $ingredientEngine = new IngredientEngine();
+        $product = $productEngine->getById($id);
+        $ingredients = $ingredientEngine->getAllForProduct($id);
+        $ingredientNames = [];
+        
+        foreach($ingredients as $ingredient) {
+          $ingredientNames[] = $ingredient->name;
+        }
+
         Request::set([
           'id' => $product->getId(),
           'name' => $product->name,
@@ -52,7 +60,8 @@
           'energy' => $product->energy,
           'fat' => $product->fat,
           'carbohydrates' => $product->carbohydrates,
-          'protein' => $product->protein
+          'protein' => $product->protein,
+          'multiselectOption' => $ingredientNames
         ]);
         $this->_view->mode = 'edit';
         $this->_view->render('products/add');

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-console.log(document.querySelector('.multiselect-autocomplete'));
+
   const multiselectAutocomplete = new MultiselectAutocomplete({
     "element": document.querySelector('.multiselect-autocomplete'),
     "requestURL": "https://pmalicki.com/foodregistration/ingredients/ajax?namepart=",
@@ -8,7 +8,22 @@ console.log(document.querySelector('.multiselect-autocomplete'));
     "maxDropdownItems": 5,
     "bootstrapStyle": true
   });
+
+  const initOptions = document.querySelector('.multiselect-autocomplete-init-options');
+  if(initOptions) {
+    let element = document.createElement('div'); 
+    JSON.parse(initOptions.innerHTML).forEach(item => {
+      element.innerHTML = item;
+      multiselectAutocomplete.addToSelected(element);
+    });
+  }
+
+
 });
+
+function loadOptions(options) {
+  console.log(options);
+}
 
 
 class MultiselectAutocomplete {
