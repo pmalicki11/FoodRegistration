@@ -42,21 +42,9 @@
       }
 
       // Update products table
-      $this->_db->update('products', [
-        'Columns' => [
-          'name' => $product->name,
-          'producer' => $product->producer,
-          'portion' => $product->portion,
-          'energy' => $product->energy,
-          'fat' => $product->fat,
-          'carbohydrates' => $product->carbohydrates,
-          'protein' => $product->protein
-        ],
-        'Conditions' => ['id' => $product->getId()]
-      ]);
-
-
-      return true;
+      $this->_product = $product;
+      $this->_ingredients = $ingredients;
+      return $this->_updateProduct();
     }
 
     private function _productExists() {
@@ -81,6 +69,54 @@
       return true;
     }
 
+    private function _updateProduct() {
+      $productParams = [
+        'Columns' => [
+          'name' => $this->_product->name,
+          'producer' => $this->_product->producer,
+          'portion' => $this->_product->portion,
+          'energy' => $this->_product->energy,
+          'fat' => $this->_product->fat,
+          'carbohydrates' => $this->_product->carbohydrates,
+          'protein' => $this->_product->protein
+          ],
+          'Conditions' => ['id' => $this->_product->getId()]
+        ];
+      
+      $this->_compareIngredients();
+
+      return $this->_db->update('products', $productParams);
+
+    }
+
+    private function _compareIngredients() {
+      $ingredientEngine = new IngredientEngine();
+      $oldIngredients = $ingredientEngine->getAllForProduct($this->_product->getId());
+
+      $oldIngredientsAry = [];
+      foreach($oldIngredients as $ingredient) {
+        array_push($oldIngredientsAry, $ingredient->getId());
+      }
+
+      $newIngredientsAry = [];
+      foreach($this->_ingredients as $ingredient) {
+        array_push($newIngredientsAry, $ingredient->getId());
+      }
+      
+      $toDel = array_diff($oldIngredientsAry, $newIngredientsAry);
+      $toAdd = array_diff($newIngredientsAry, $oldIngredientsAry);
+
+      foreach($toDel as $ingredientId) {
+        $this->_deleteProductIngredients($this->_product->getId(), $ingredientId);
+      }
+
+      foreach($toAdd as $ingredientId) {
+        $this->_saveProductIngredients($this->_product->getId(), $ingredientId);
+      }
+
+      echo 'end;';
+    }
+
     private function _saveProduct() {
       $params = [
         'name' => $this->_product->name,
@@ -94,15 +130,23 @@
       return $this->_db->insert('products', $params);
     }
 
-    private function _saveProductIngredients($productId) {
+    private function _saveProductIngredients($productId, $ingredientId = null) {
       $result = true;
-      foreach($this->_ingredients as $ingredient) {
+      if($ingredientId) {
         $params = [
           'product_id' => $productId,
-          'ingredient_id' => $ingredient->getId()
-        ];
-        $result = ($result && $this->_db->insert('product_ingredients', $params));
+          'ingredient_id' => $ingredientId
+        ];  
+      } else {
+        foreach($this->_ingredients as $ingredient) {
+          $params = [
+            'product_id' => $productId,
+            'ingredient_id' => $ingredient->getId()
+          ];
+        }
       }
+      
+      $result = ($result && $this->_db->insert('product_ingredients', $params));
       return $result;
     }
 
@@ -156,8 +200,11 @@
       }
     }
 
-    private function _deleteProductIngredients($productId) {
+    private function _deleteProductIngredients($productId, $ingredientId = null) {
       $params = ['Conditions' => ['product_id' => $productId]];
+      if($ingredientId) {
+        $params['Conditions'] = array_merge($params['Conditions'], ['ingredient_id' => $ingredientId]);
+      }
       $this->_db->delete('product_ingredients', $params);
     }
 

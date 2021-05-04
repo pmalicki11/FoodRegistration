@@ -9,7 +9,7 @@
     private function __construct() {
       try {
         $this->_pdo = new PDO(
-          'mysql:hostname='. DBHOST .';port=3306;dbname=' . DBNAME,
+          'mysql:host='. DBHOST .';port=3306;dbname=' . DBNAME,
           DBUSER,
           DBPASSWORD,
           [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]
@@ -110,7 +110,13 @@
       }
 
       $query = $this->_pdo->prepare("UPDATE `{$table}` SET {$columnString}{$conditions}");
-      $query->execute($bindingParams);
+      try {
+        $query->execute($bindingParams);
+        return true;
+      } catch (Exception $e) {
+        echo $e->getMessage();
+        return false;
+      }
     }
 
 
