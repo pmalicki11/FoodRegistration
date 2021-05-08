@@ -15,13 +15,21 @@
     }
 
     public function run() {
+      if($result = $this->_checkEmpty()) {
+        return $result;
+      }
       if(strlen($this->_data) < $this->_minLength) {
-        if($this->_minLength == 1) {
-          return [$this->_field => ucfirst($this->_field) . ' can\'t be empty'];
-        }
         return [$this->_field => ucfirst($this->_field) . ' must be minimum ' . $this->_minLength . ' characters long'];
-      } else if(strlen($this->_data) > $this->_maxLength) {
+      }
+      if(strlen($this->_data) > $this->_maxLength) {
         return [$this->_field => ucfirst($this->_field) . ' must be maximum ' . $this->_maxLength . ' characters long'];
+      }
+      return null;
+    }
+
+    private function _checkEmpty() {
+      if($this->_minLength > 0 && strlen($this->_data) == 0) {
+        return [$this->_field => ucfirst($this->_field) . ' can not be empty'];
       }
       return null;
     }
