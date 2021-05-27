@@ -67,4 +67,9 @@
       Cookie::deleteRememberCookie();
       Router::redirect('home/index');
     }
+
+
+    public function activateAction() {
+      echo "Account activated! (fake)";
+    }
   }

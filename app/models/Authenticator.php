@@ -82,7 +82,7 @@
     }
     
     private function _isUserActive() {
-      if($this->_user->active) {
+      if($this->_user->active == 1) {
         return true;
       }
       $this->_errors = array_merge($this->_errors, ['general' => 'User is not active']);

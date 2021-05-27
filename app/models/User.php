@@ -7,7 +7,7 @@ class User {
   public $password;
   public $salt;
   public $email;
-  private $role;
+  public $role;
   public $active;
   private $_validators = [];
 
