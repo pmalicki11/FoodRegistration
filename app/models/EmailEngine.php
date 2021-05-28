@@ -26,20 +26,31 @@ class EmailEngine {
   }
   
 
-  public function sendEmail($recipient, $subject, $message) {
-    $this->_mail->Subject = $subject;
-    $this->_mail->Body = $message;     
-    $this->_mail->AddAddress ($recipient);
-    return $this->_mail->Send();
+  public function sendRegistrationEmail($user) {
+    $recipient = $user->email;
+    $subject = 'Account registration';
+    $message = '<h2>Hello ' . $user->username . '!</h2><hr>
+      <h4>Thanks for registration in Food Registration App!</h4>
+      <p>There is only one step before you will be able to use application. Please click link below to finalize your registration process.</p>
+      <a href="' . DOMAIN . PROOT . 'account/activate?token=' . $user->active . '">' . DOMAIN . PROOT . 'account/activate?token=' . $user->active . '</a>';
+    return $this->sendEmail($recipient, $subject, $message);
   }
+
 
   public function sendActivationEmail($user) {
     $recipient = $user->email;
     $subject = 'Account activation';
-    $message = '<h1>Hello ' . $user->username . '</h1>';
-    $message .= '<p>You have successfully registered your account in Food Regsitration App.';
-    $message .= 'To be able to take ful advantage of the App you need to activate your account by clikcking link below.<br>';
-    $message .= DOMAIN . PROOT . 'account/activate?token=' . $user->active . '</p>';
+    $message = '<h2>Hello ' . $user->username . '!</h2><hr>
+      <h4>Your account in Food Registration App has been activated successfully!</h4>
+      <p>You can login <a href="' . DOMAIN . PROOT . 'account/login">here</a></p>';
     return $this->sendEmail($recipient, $subject, $message);
+  }
+
+
+  private function sendEmail($recipient, $subject, $message) {
+    $this->_mail->Subject = $subject;
+    $this->_mail->Body = $message;     
+    $this->_mail->AddAddress ($recipient);
+    return $this->_mail->Send();
   }
 }

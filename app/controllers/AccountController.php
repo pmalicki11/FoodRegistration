@@ -70,6 +70,12 @@
 
 
     public function activateAction() {
-      echo "Account activated! (fake)";
+      $token = $_REQUEST["token"];
+      $activator = new Activator($token);
+      $activator->activateAccount();
+
+
+
+      echo "Account activated! (fake)\nToken: " . $token;
     }
   }

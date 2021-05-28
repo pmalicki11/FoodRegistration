@@ -18,7 +18,7 @@
         $user->active = md5(rand());
         if($this->_saveUser($user)) {
           $emailEngine = new EmailEngine();
-          $emailEngine->sendActivationEmail($user);          
+          $emailEngine->sendRegistrationEmail($user);          
           return true;
         }
         return false;
@@ -62,7 +62,7 @@
         'role' => $user->role,
         'active' => $user->active
       ];
-      return $this->_db->insert('users', $params);
+      return true; //$this->_db->insert('users', $params);
     }
 
     public function getErrors() {

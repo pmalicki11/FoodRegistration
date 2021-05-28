@@ -3,7 +3,8 @@
     "home" : ["*"],
     "account" : [
       "login",
-      "register"
+      "register",
+      "activate"
     ],
     "ingredients" : ["ajax"]
   },
