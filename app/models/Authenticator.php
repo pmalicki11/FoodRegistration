@@ -86,7 +86,7 @@
         return true;
       }
       $this->_errors = array_merge($this->_errors, ['general' => 'User is not active']);
-      return true;
+      return false;
     }
 
     public function addUserSession($userSession) {

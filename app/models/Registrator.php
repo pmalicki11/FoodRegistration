@@ -62,7 +62,7 @@
         'role' => $user->role,
         'active' => $user->active
       ];
-      return true; //$this->_db->insert('users', $params);
+      return $this->_db->insert('users', $params);
     }
 
     public function getErrors() {
