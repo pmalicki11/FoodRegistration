@@ -17,14 +17,13 @@
       $user = new User();
       $user = $this->_getUserData();
       if($user != null) {
-        /*
-          User found
-          1. Change active to 1
-          2. Send confirmation email
-          3. Redirect to login page
-        */
+        $this->_setUserActive($user);
+        $emailEngine = new EmailEngine();
+        $emailEngine->sendActivationEmail($user);
+        return true;
       } else {
-        $this->_errors = array_merge($this->_errors, ['general' => 'Bad token.']);
+        $this->_errors = array_merge($this->_errors, ['general' => 'Bad token. Account activation failed']);
+        return false;
       }
     }
 
@@ -42,6 +41,14 @@
         return $user;
       }
       return null;
+    }
+
+    private function _setUserActive($user) {
+      $params = [
+        'Columns' => ['active' => 1],
+        'Conditions' => ['id' => $user->getId()]
+      ];
+      $this->_db->update('users', $params);
     }
 
 

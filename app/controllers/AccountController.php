@@ -73,9 +73,7 @@
       $token = $_REQUEST["token"];
       $activator = new Activator($token);
       $activator->activateAccount();
-
-
-
-      echo "Account activated! (fake)\nToken: " . $token;
+      $this->_view->errors = $activator->getErrors();
+      $this->_view->render('account/login');
     }
   }
