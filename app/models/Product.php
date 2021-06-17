@@ -42,7 +42,7 @@ class Product {
   }
 
   public function validate() {
-    $this->_validators[] = new LengthValidator('name', $this->name, 2, 50);
+    $this->_validators[] = new LengthValidator('name', $this->name, 2, 150);
     $this->_validators[] = new LengthValidator('producer', $this->producer, 2, 50);
 
     $errors = [];
