@@ -136,17 +136,17 @@
         $params = [
           'product_id' => $productId,
           'ingredient_id' => $ingredientId
-        ];  
+        ];
+        $result = ($result && $this->_db->insert('product_ingredients', $params)); 
       } else {
         foreach($this->_ingredients as $ingredient) {
           $params = [
             'product_id' => $productId,
             'ingredient_id' => $ingredient->getId()
           ];
+          $result = ($result && $this->_db->insert('product_ingredients', $params));
         }
       }
-      
-      $result = ($result && $this->_db->insert('product_ingredients', $params));
       return $result;
     }
 
