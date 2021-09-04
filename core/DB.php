@@ -14,6 +14,7 @@
           DBPASSWORD,
           [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]
         );
+        $this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       } catch (PDOException $e) {
         die($e->getMessage());
       }
@@ -57,12 +58,11 @@
       if(isset($params['Limit'])) {
         $limit .= "LIMIT ";
         foreach($params['Limit'] as $value) {
-          $limit .= $value . ', ';
+          $limit .= "?, ";
           $bindingParams[] = $value;
         }
         $limit = rtrim($limit, ', ');
       }
-
       $query = $this->_pdo->prepare("SELECT {$columnString} FROM `{$table}` {$conditions} {$limit}");
       $query->execute($bindingParams);
       $result = $query->fetchAll(PDO::FETCH_NAMED);

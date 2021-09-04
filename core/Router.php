@@ -3,7 +3,6 @@
   class Router {
     
     public static function route($url) {
-      
       $controller = ((count($url)) ? $url[0] : 'Home');
       $controllerName = ucfirst($controller) . 'Controller';
       array_shift($url);
@@ -13,9 +12,12 @@
       $action = (count($url)) ? ($url[0]) : $defaultAction;
       $actionName = $action . 'Action';
       array_shift($url);
+      
+      $role = 'guest';
+      if(isset(Session::currentUser()['role'])) {
+        $role = Session::currentUser()['role'];
+      }
 
-      $role = Session::currentUser()['role'];
-      if(!$role) $role = 'guest';
       $target = $controller . '/' . $action;
 
       if(self::checkAccess($role, $target)) {
@@ -42,15 +44,14 @@
       $aclFile = ROOT . DS . 'app' . DS . 'config' . DS . 'acl.json';
       
       if(file_exists($aclFile)) {
-        $acl = json_decode(file_get_contents($aclFile));
+        $acl = json_decode(file_get_contents($aclFile), true);
         
         $target = explode('/', $target);
         $targetController = $target[0];
         array_shift($target);
         $targetAction = (count($target)) ? $target[0] : 'index';
-    
-        if(array_key_exists($targetController, $acl->$role)) {
-          $allowedController = $acl->$role->$targetController;
+        if(array_key_exists($targetController, $acl[$role])) {
+          $allowedController = $acl[$role][$targetController];
           if(in_array('*', $allowedController) || in_array($targetAction, $allowedController)) {
             return true;
           }
