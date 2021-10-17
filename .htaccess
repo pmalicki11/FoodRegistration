@@ -2,7 +2,7 @@ Options -Indexes
 
 RewriteEngine On
 
-RewriteRule ^(.+api.+)$ API/index.php [L]
+RewriteRule ^(.+api.+)$ API/index.php [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

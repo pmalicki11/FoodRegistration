@@ -33,5 +33,6 @@
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json");
   echo $request->call($requestParams);
+  die();
 
   
