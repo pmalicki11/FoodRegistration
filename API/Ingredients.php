@@ -2,7 +2,7 @@
 
   class Ingredients {
 
-    public function add($params) {
+    public function getList($params) {
       $namePart = $params['namepart'];
       $engine = new IngredientEngine();
       $ingredients = $engine->getByName($namePart.'%');
