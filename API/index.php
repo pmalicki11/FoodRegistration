@@ -21,7 +21,7 @@
   spl_autoload_register('autoload');
 
   $requestUrl = isset($_SERVER['REQUEST_URI']) ? explode('/', trim($_SERVER['REQUEST_URI'], '/')) : [];
-  $requestObject = $requestUrl[2];
+  $requestObject = ucfirst($requestUrl[2]);
   $requestMethod = $requestUrl[3];
   if(strpos($requestUrl[3], '?')) {
     $requestMethod = strstr($requestUrl[3], '?', true);
@@ -34,5 +34,3 @@
   header("Content-Type: application/json");
   echo $request->call($requestParams);
   die();
-
-  
