@@ -14,7 +14,11 @@
       "profile",
       "logout"
     ],
-    "products" : ["*"],
+    "products" : [
+      "index",
+      "show",
+      "add"
+    ],
     "ingredients" : ["ajax"]
   },
   "admin" : {
