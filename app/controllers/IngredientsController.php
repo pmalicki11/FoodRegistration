@@ -81,19 +81,4 @@
       Router::redirect('ingredients/index');
     }
 
-    public function ajaxAction() {
-      header("Access-Control-Allow-Origin: *");
-      header("Content-Type: application/json");
-
-      $namePart = $_REQUEST["namepart"];
-      $engine = new IngredientEngine();
-      $ingredients = $engine->getByName($namePart.'%');
-      $names = [];
-      if($ingredients) {
-        foreach($ingredients as $ingredient) {
-          $names[] = $ingredient->name;
-        }
-      }
-      echo json_encode(array_values($names));
-   }
   }
