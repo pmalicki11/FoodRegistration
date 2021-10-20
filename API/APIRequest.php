@@ -17,9 +17,20 @@
       $objectMethod = [$object, $this->_method];
 
       if(is_callable($objectMethod)) {
-        return call_user_func($objectMethod, $params);
+        $response = call_user_func($objectMethod, $params);
+        http_response_code($response['status']);
+        return $response['message'];
+
       } else {
-        echo 'Bad request';
+        http_response_code(ResponseStatus::badRequest);
+        die();
+      }
+    }
+
+    public static function authenticate() {
+      $passed = true;
+      if($passed) {
+        return true; // todo
       }
     }
   }
