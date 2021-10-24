@@ -1,5 +1,7 @@
 <?php
 
+  session_start();
+
   define('DS', DIRECTORY_SEPARATOR);
   define('ROOT', str_replace(['/', '\\'], DS, $_SERVER['DOCUMENT_ROOT']) . DS . 'foodregistration');
   require_once(ROOT . DS . 'app' . DS . 'config' . DS . 'config.php');
@@ -21,7 +23,7 @@
   spl_autoload_register('autoload');
 
   $requestUrl = isset($_SERVER['REQUEST_URI']) ? explode('/', trim($_SERVER['REQUEST_URI'], '/')) : [];
-  $requestObject = ucfirst($requestUrl[2]);
+  $requestObject = $requestUrl[2];
   $requestMethod = $requestUrl[3];
   if(strpos($requestUrl[3], '?')) {
     $requestMethod = strstr($requestUrl[3], '?', true);

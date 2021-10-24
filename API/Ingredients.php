@@ -38,8 +38,6 @@
         'message' => ''
       ];
       
-      APIRequest::authenticate();
-      
       if($_SERVER['REQUEST_METHOD'] !== 'POST') {
         $response['status'] = ResponseStatus::methodNotAllowed;
         return $response;

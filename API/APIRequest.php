@@ -5,10 +5,12 @@
     private $_object;
     private $_method;
     private $_params;
+    private $_path;
 
     public function __construct($object, $method) {
-      $this->_object = $object;
+      $this->_object = ucfirst($object);
       $this->_method = $method;
+      $this->_path = $object . '/' . $method;
     }
 
     public function call($params) {
@@ -16,21 +18,16 @@
       $this->_params = $params;
       $objectMethod = [$object, $this->_method];
 
-      if(is_callable($objectMethod)) {
+      if(!is_callable($objectMethod)) {
+        http_response_code(ResponseStatus::badRequest);
+
+      } elseif(!Router::checkAccess(Session::currentUser()['role'], $this->_path)) {
+        http_response_code(ResponseStatus::unauthorized);
+
+      } else { 
         $response = call_user_func($objectMethod, $params);
         http_response_code($response['status']);
         return $response['message'];
-
-      } else {
-        http_response_code(ResponseStatus::badRequest);
-        die();
       }
-    }
-
-    public static function authenticate() {
-      $passed = true;
-      if($passed) {
-        return true; // todo
-      }
-    }
   }
+}

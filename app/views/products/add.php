@@ -98,7 +98,34 @@
       </div> 
 
     </form>
+
+    <button id="add-ingredient">Add</button>
   </div>
 </div>
 <script src="<?= PROOT.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'js'.DS.'multiselect-autocomplete.js'; ?>"></script>
+<script>
+  let button = document.querySelector('#add-ingredient');
+  button.addEventListener('click', e => {
+
+    let url = 'http://localhost/foodregistration/api/ingredients/add';
+    let formData = new FormData();
+    formData.append('name', 'Testing');
+
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+
+    .then(response => {
+      console.log(response);
+    })
+    
+    .catch(error => {
+      console.log(error);
+    });
+    
+  });
+
+</script>
+
 <?php $this->end(); ?>

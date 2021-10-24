@@ -6,7 +6,7 @@
       "register",
       "activate"
     ],
-    "ingredients" : ["ajax"]
+    "ingredients" : ["getList"]
   },
   "user" : {
     "home" : ["*"],
@@ -19,7 +19,7 @@
       "show",
       "add"
     ],
-    "ingredients" : ["ajax"]
+    "ingredients" : ["getList"]
   },
   "admin" : {
     "home" : ["*"],
