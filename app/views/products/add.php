@@ -94,38 +94,44 @@
       </div>
       
       <div class="form-group text-center">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Add missing ingredient</button>
         <input class="btn btn-dark" type="submit" value="Submit">
       </div> 
 
     </form>
 
-    <button id="add-ingredient">Add</button>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLongTitle">Add ingredient</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form id="missingIngredientForm">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" id="name" name="name" autofocus>
+              </div>
+              <div class="form-group text-center">
+                <input class="btn btn-dark" type="submit" value="Submit">
+              </div>  
+            </form>
+          
+            <div id="notification" role="alert"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 <script src="<?= PROOT.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'js'.DS.'multiselect-autocomplete.js'; ?>"></script>
-<script>
-  let button = document.querySelector('#add-ingredient');
-  button.addEventListener('click', e => {
-
-    let url = 'http://localhost/foodregistration/api/ingredients/add';
-    let formData = new FormData();
-    formData.append('name', 'Testing');
-
-    fetch(url, {
-      method: 'POST',
-      body: formData
-    })
-
-    .then(response => {
-      console.log(response);
-    })
-    
-    .catch(error => {
-      console.log(error);
-    });
-    
-  });
-
-</script>
+<script src="<?= PROOT.DS.'app'.DS.'js'.DS.'addMissingIngredient.js'; ?>"></script>
 
 <?php $this->end(); ?>
