@@ -50,6 +50,10 @@
               Cookie::setRememberCookie($userSession->getSessionId());
             }
             Session::setUserSession($user);
+            $jwt = new JWT();
+            var_export($jwt->getTokenForUser($user));
+            die;
+            Cookie::setJWTCookie($jwt->getTokenForUser($user));
             Router::redirect('home/index');
           }
           $errors = $authenticator->getErrors();
