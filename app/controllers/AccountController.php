@@ -51,8 +51,6 @@
             }
             Session::setUserSession($user);
             $jwt = new JWT();
-            var_export($jwt->getTokenForUser($user));
-            die;
             Cookie::setJWTCookie($jwt->getTokenForUser($user));
             Router::redirect('home/index');
           }
@@ -69,6 +67,7 @@
       $authenticator->removeUserSession();
       session_destroy();
       Cookie::deleteRememberCookie();
+      Cookie::deleteJWTCookie();
       Router::redirect('home/index');
     }
 
