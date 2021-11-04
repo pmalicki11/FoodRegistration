@@ -12,15 +12,10 @@
       $action = (count($url)) ? ($url[0]) : $defaultAction;
       $actionName = $action . 'Action';
       array_shift($url);
-      
-      $role = 'guest';
-      if(isset(Session::currentUser()['role'])) {
-        $role = Session::currentUser()['role'];
-      }
 
       $target = $controller . '/' . $action;
 
-      if(self::checkAccess($role, $target)) {
+      if(self::checkAccess(Session::currentUser(), $target)) {
         
         $params = []; 
         if(count($url) > 1) {
@@ -40,7 +35,8 @@
       header('Location: '. PROOT . $location);
     }
 
-    public static function checkAccess($role, $target) {
+    public static function checkAccess($user, $target) {
+      $role = isset($user['role']) ? $user['role'] : 'guest';
       $aclFile = ROOT . DS . 'app' . DS . 'config' . DS . 'acl.json';
       
       if(file_exists($aclFile)) {

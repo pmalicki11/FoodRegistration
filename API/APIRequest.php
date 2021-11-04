@@ -21,7 +21,7 @@
       if(!is_callable($objectMethod)) {
         http_response_code(ResponseStatus::badRequest);
 
-      } elseif(!Router::checkAccess(Session::currentUser()['role'], $this->_path)) {
+      } elseif(!Router::checkAccess(Session::currentUser(), $this->_path)) {
         http_response_code(ResponseStatus::unauthorized);
 
       } else { 

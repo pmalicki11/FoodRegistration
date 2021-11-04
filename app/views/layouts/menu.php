@@ -3,23 +3,18 @@
   if(file_exists($menuFile)) {
 
     $menu = json_decode(file_get_contents($menuFile));
-    $userRole = 'guest';
-    $currentUser = Session::currentUser();
-
-    if($currentUser) {
-      $userRole = $currentUser['role'];
-    }
+    $user = Session::currentUser();
 
     $menuHTML = '<ul class="navbar-nav mr-auto">';
     foreach($menu as $menuDesc => $link) {
-      if(Router::checkAccess($userRole, $link) && substr($link, 0, 7) != 'account') {
+      if(Router::checkAccess($user, $link) && substr($link, 0, 7) != 'account') {
         $menuHTML .= '<li class="nav-item"><a class="nav-link" href="' . PROOT . $link . '" ' . isActive($link, 'module') . '>' . $menuDesc . '</a></li>';
       }
     }
     $menuHTML .= '</ul>';
     $menuHTML .= '<ul class="navbar-nav">';
     foreach($menu as $menuDesc => $link) {
-      if(Router::checkAccess($userRole, $link) && substr($link, 0, 7) == 'account') {
+      if(Router::checkAccess($user, $link) && substr($link, 0, 7) == 'account') {
         $menuHTML .= '<li class="nav-item"><a class="nav-link" href="' . PROOT . $link . '" ' . isActive($link) . '>' . $menuDesc . '</a></li>';
       }
     }
