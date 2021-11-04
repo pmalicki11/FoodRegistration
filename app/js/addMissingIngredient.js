@@ -7,7 +7,7 @@ form.addEventListener('submit', e => {
   
   e.preventDefault();
   const formData = new FormData(e.target);
-  const url = '//localhost/foodregistration/api/ingredients/add';
+  const url = 'https://pml.software/foodregistration/api/ingredients/add';
 
   fetch(url, {
     method: 'POST',
