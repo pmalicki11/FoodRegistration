@@ -11,11 +11,11 @@
     }
 
     public static function setJWTCookie($value) {
-      setcookie(JWT_COOKIE_NAME, $value, time() + COOKIE_DURABILITY, PROOT);
+      setcookie('JWT', $value, time() + COOKIE_DURABILITY, PROOT);
     }
 
     public static function deleteJWTCookie() {
-      setcookie(JWT_COOKIE_NAME, '', time() -3600 , PROOT);
+      setcookie('JWT', '', time() - 3600 , PROOT);
     }
 
     public static function getCookie($cookieName) {

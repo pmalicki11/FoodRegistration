@@ -18,6 +18,15 @@
       $this->_params = $params;
       $objectMethod = [$object, $this->_method];
 
+      $user = !empty($_POST['user']) ? $_POST['user'] : null;
+      $token = !empty($_POST['token']) ? $_POST['token'] : null;
+      $jwt = new JWT();
+      if($user && $token) {
+        $sessionData = $jwt->verifyUserToken($user, $token);
+        if($sessionData) {
+          Session::setUserSession($sessionData);
+        }
+      }
       if(!is_callable($objectMethod)) {
         http_response_code(ResponseStatus::badRequest);
 
@@ -29,5 +38,5 @@
         http_response_code($response['status']);
         return $response['message'];
       }
+    }
   }
-}
