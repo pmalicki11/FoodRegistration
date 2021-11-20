@@ -1,0 +1,12 @@
+#profilepicture {
+  width: 200px;
+  height: 200px;
+  background-image: url('../../utils/emptyuserpicture.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; 
+}
+
+#addprofilepicturebutton {
+  opacity: 0.6;
+}
