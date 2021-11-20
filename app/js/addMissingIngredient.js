@@ -7,7 +7,9 @@ form.addEventListener('submit', e => {
   
   e.preventDefault();
   const formData = new FormData(e.target);
-  const url = 'https://pml.software/foodregistration/api/ingredients/add';
+  formData.append('token', getCookie('JWT'));
+
+  const url = 'https://pml.software/foodregistration/api/ingredients/addMissing';
 
   fetch(url, {
     method: 'POST',

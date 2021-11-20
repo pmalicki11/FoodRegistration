@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const multiselectAutocomplete = new MultiselectAutocomplete({
     "element": document.querySelector('.multiselect-autocomplete'),
-    "requestURL": "https://pml.software/foodregistration/api/ingredients/getList?namepart=",
-    "inputValueAsRequestPart": true,
+    "requestURL": "https://pml.software/foodregistration/api/ingredients/getByNamePart",
+    "inputValueAsRequestPart": false,
     "filterRequestDataByInput": false,
     "maxDropdownItems": 5,
     "bootstrapStyle": true
@@ -122,7 +122,13 @@ class MultiselectAutocomplete {
 
   requestItems(inputValue, requestURL, inputValueAsRequestPart, filterRequestDataByInput) {
     const requestString = inputValueAsRequestPart ? requestURL + inputValue : requestURL;
-    fetch(requestString)
+    const formData = new FormData();
+    formData.append('namepart', inputValue);
+    formData.append('token', getCookie('JWT'));
+    fetch(requestString, {
+      method: 'POST',
+      body: formData
+    })
     .then(response => response.json())
     .then(data => {
       let filteredData = [];

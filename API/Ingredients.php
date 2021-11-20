@@ -2,7 +2,7 @@
 
   class Ingredients {
 
-    public function getList($params) {
+    public function getByNamePart($params) {
 
       $response = [
         'status' => ResponseStatus::ok,
@@ -32,7 +32,7 @@
       return $response;
     }
 
-    public function add() {
+    public function addMissing() {
       $response = [
         'status' => ResponseStatus::created,
         'message' => ''

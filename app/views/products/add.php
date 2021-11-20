@@ -112,6 +112,7 @@
           <div class="modal-body">
 
             <form id="missingIngredientForm">
+            <input class="d-none" id="user" name="user" value="<?=Session::currentUser()['username'];?>">
               <div class="form-group">
                 <label for="name">Name:</label>
                 <input class="form-control" id="name" name="name" autofocus>
@@ -128,10 +129,10 @@
       </div>
     </div>
 
-
   </div>
 </div>
 <script src="<?= PROOT.DS.'vendor'.DS.'multiselect-autocomplete'.DS.'js'.DS.'multiselect-autocomplete.js'; ?>"></script>
+<script src="<?= PROOT.DS.'app'.DS.'js'.DS.'helper.js'; ?>"></script>
 <script src="<?= PROOT.DS.'app'.DS.'js'.DS.'addMissingIngredient.js'; ?>"></script>
 
 <?php $this->end(); ?>

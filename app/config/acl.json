@@ -6,7 +6,7 @@
       "register",
       "activate"
     ],
-    "ingredients" : ["getList"]
+    "ingredients" : ["getByNamePart"]
   },
   "user" : {
     "home" : ["*"],
@@ -19,7 +19,10 @@
       "show",
       "add"
     ],
-    "ingredients" : ["getList"]
+    "ingredients" : [
+      "getByNamePart",
+      "addMissing"
+    ]
   },
   "admin" : {
     "home" : ["*"],
