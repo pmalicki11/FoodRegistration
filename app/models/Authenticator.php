@@ -21,6 +21,7 @@
         && $this->_checkUserPassword($givenPassword)
         && $this->_isUserActive()
       ) {
+        $user = $this->_user;
         return true;
       }
       return false;
@@ -98,9 +99,9 @@
       $this->_db->insert('user_sessions', $params);
     }
 
-    public function removeUserSession() {
+    public function removeUserSession($user) {
       $params = ['Conditions' => [
-        'user_id' => Session::currentUser()['id'],
+        'user_id' => $user->getId(),
         'user_agent' => Session::userAgentNoVersion()
       ]];
       $this->_db->delete('user_sessions', $params);

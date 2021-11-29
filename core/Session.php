@@ -14,7 +14,7 @@
     }
 
     public static function setUserSession($user) {
-      $_SESSION['user'] = is_array($user) ? $user : $user->toArray();
+      $_SESSION['user'] = $user;
     }
 
     public static function currentUser() {

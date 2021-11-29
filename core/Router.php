@@ -36,7 +36,7 @@
     }
 
     public static function checkAccess($user, $target) {
-      $role = isset($user['role']) ? $user['role'] : 'guest';
+      $role = $user->role ?? 'guest';
       $aclFile = ROOT . DS . 'app' . DS . 'config' . DS . 'acl.json';
       
       if(file_exists($aclFile)) {

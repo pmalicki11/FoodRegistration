@@ -23,7 +23,7 @@
         <th class="align-middle text-center" scope="col">Carbs <small>[g/100g]</small></th>
         <th class="align-middle text-center" scope="col">Protein <small>[g/100g]</small></th>
         <th class="align-middle" scope="col"></th>
-        <?php if(Session::currentUser()['role'] == 'admin') : ?>
+        <?php if(Session::currentUser()->role == 'admin') : ?>
           <th class="align-middle" scope="col"></th>
           <th class="align-middle" scope="col"></th>
         <?php endif; ?>
@@ -45,7 +45,7 @@
           <td class="col-md-1 text-center">
               <a href="#/<?= $product->getId(); ?>" class="text-success"><i class="bi bi-clipboard-plus"></i></a>
           </td>
-          <?php if(Session::currentUser()['role'] == 'admin') : ?>
+          <?php if(Session::currentUser()->role == 'admin') : ?>
             <td class="col-md-1 text-center">
               <a href="edit/<?= $product->getId(); ?>" class="text-body"><i class="bi bi-pencil-square"></i></a>
             </td>
