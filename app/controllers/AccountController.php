@@ -42,8 +42,8 @@
 
         if(empty($errors)) {
           $authenticator = new Authenticator();
-          if($authenticator->loginUser($user)) {            
-            $authenticator->removeUserSession();
+          if($authenticator->loginUser($user)) {
+            $authenticator->removeUserSession($user);
             if(Request::get('remember') == 'on') {
               $userSession = new UserSession($user);
               $authenticator->addUserSession($userSession);
@@ -64,7 +64,7 @@
     
     public function logoutAction() {
       $authenticator = new Authenticator();
-      $authenticator->removeUserSession();
+      $authenticator->removeUserSession(Session::currentUser());
       session_destroy();
       Cookie::deleteRememberCookie();
       Cookie::deleteJWTCookie();

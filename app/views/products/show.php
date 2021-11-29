@@ -6,7 +6,7 @@
   <div class="row p-3">
     <h3><?= $this->product->name; ?></h3>
   </div>
-    <?php if(Session::currentUser()['role'] == 'admin') : ?>
+    <?php if(Session::currentUser()->role == 'admin') : ?>
     <div class="row px-3">
       <a href="<?= PROOT; ?>products/edit/<?= $this->product->getId(); ?>" class="btn btn-outline-dark m-1" role="button">
         <i class="bi bi-pencil-fill"></i>

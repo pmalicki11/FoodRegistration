@@ -1,5 +1,4 @@
 <?php
-  session_start();
 
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
@@ -8,7 +7,9 @@
   define('DS', DIRECTORY_SEPARATOR);
   define('ROOT', dirname(__FILE__));
   require_once(ROOT . DS . 'app' . DS . 'config' . DS . 'config.php');
+  require_once(ROOT . DS . 'app' . DS . 'models' . DS . 'User.php');
 
+  session_start();
 
   function autoload($className) {
     if(file_exists(ROOT . DS . 'core' . DS . $className . '.php')) {

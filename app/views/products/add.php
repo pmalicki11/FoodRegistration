@@ -112,7 +112,7 @@
           <div class="modal-body">
 
             <form id="missingIngredientForm">
-            <input class="d-none" id="user" name="user" value="<?=Session::currentUser()['username'];?>">
+            <input class="d-none" id="user" name="user" value="<?=Session::currentUser()->username;?>">
               <div class="form-group">
                 <label for="name">Name:</label>
                 <input class="form-control" id="name" name="name" autofocus>

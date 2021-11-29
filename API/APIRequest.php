@@ -4,7 +4,6 @@
         
     private $_object;
     private $_method;
-    private $_params;
     private $_path;
 
     public function __construct($object, $method) {
@@ -15,16 +14,16 @@
 
     public function call($params) {
       $object = new $this->_object();
-      $this->_params = $params;
       $objectMethod = [$object, $this->_method];
 
-      $user = !empty($_POST['user']) ? $_POST['user'] : null;
+      $userName = !empty($_POST['user']) ? $_POST['user'] : null;
       $token = !empty($_POST['token']) ? $_POST['token'] : null;
       $jwt = new JWT();
-      if($user && $token) {
-        $sessionData = $jwt->verifyUserToken($user, $token);
-        if($sessionData) {
-          Session::setUserSession($sessionData);
+      if($userName && $token) {
+        $userEngine = new UserEngine();
+        $user = $userEngine->getUserByName($userName);
+        if($jwt->verifyUserToken($user, $token)) {
+          Session::setUserSession($user);
         }
       }
       if(!is_callable($objectMethod)) {

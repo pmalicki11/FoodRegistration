@@ -32,7 +32,7 @@
       } catch (Exception $e) {
         return false;
       }
-      return ($user == $this->_payload['username']) ? $this->_payload : null;
+      return $this->_validatePayload($user);
     }
 
     private function _encodeToken() {
@@ -69,5 +69,15 @@
     private function _base64url_decode($data, $strict = false){
       $b64 = strtr($data, '-_', '+/');
       return base64_decode($b64, $strict);
+    }
+
+    private function _validatePayload($user) {
+      $userArray = $user->toArray();
+      foreach($userArray as $userProperty) {
+        if($userArray[$userProperty] != $this->_payload[$userProperty]) {
+          return false;
+        }
+      }
+      return true;
     }
   }
