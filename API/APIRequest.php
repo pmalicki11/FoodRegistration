@@ -12,7 +12,6 @@
       $this->_path = $object . '/' . $method;
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function call($params) {
       $object = new $this->_object();
       $objectMethod = [$object, $this->_method];
