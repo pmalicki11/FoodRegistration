@@ -34,7 +34,7 @@
               <a href="edit/<?=$product->getId();?>" class="text-body px-2"><i class="h5 bi bi-pencil-square"></i></a>
               <a href="delete/<?=$product->getId();?>" class="text-danger px-2"><i class="h5 bi bi-x-square"></i></a>
             <?php endif; ?>
-            <a href="#/<?=$product->getId();?>" class="text-success px-2"><i class="h5 bi bi-clipboard-plus"></i></a>
+            <a href="assign/<?=$product->getId();?>" class="text-success px-2"><i class="h5 bi bi-clipboard-plus"></i></a>
           </td>
           <td class="col-md-4">
             <a href="show/<?= $product->getId(); ?>"><?= $product->name; ?></a>

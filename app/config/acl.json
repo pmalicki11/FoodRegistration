@@ -17,7 +17,8 @@
     "products" : [
       "index",
       "show",
-      "add"
+      "add",
+      "assign"
     ],
     "ingredients" : [
       "getByNamePart",
