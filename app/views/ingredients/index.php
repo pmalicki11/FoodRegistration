@@ -21,22 +21,23 @@
     
     <thead class="thead-dark">
       <tr>
+        <?php if(Session::currentUser()->role == 'admin') : ?>
+          <th scope="col">Actions</th>
+        <?php endif; ?>
         <th scope="col">Name</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
       </tr>
     </thead>
     
     <tbody>  
       <?php foreach($this->ingredients as $ingredient): ?>
       <tr>
-          <td class="col-md-10"><?= $ingredient->name; ?></td>
+        <?php if(Session::currentUser()->role == 'admin') : ?>
           <td class="col-md-1 text-center">
-            <a href="edit/<?= $ingredient->getId(); ?>" class="text-body"><i class="bi bi-pencil-square"></i></a>
+            <a href="edit/<?= $ingredient->getId(); ?>" class="text-body px-2"><i class="h5 bi bi-pencil-square"></i></a>
+            <a href="delete/<?= $ingredient->getId(); ?>" class="text-danger px-2"><i class="h5 bi bi-x-square"></i></a>
           </td>
-          <td class="col-md-1 text-center">
-            <a href="delete/<?= $ingredient->getId(); ?>" class="text-danger"><i class="bi bi-x-square"></i></a>
-          </td>
+        <?php endif; ?>
+        <td class="col-md-11"><?= $ingredient->name; ?></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
