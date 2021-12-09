@@ -52,9 +52,9 @@
         <div class="input-group mb-3">
           <select name="symptoptoms" class="custom-select" id="symptoptoms">
             <option hidden>Select...</option>
-            <option value="1">Symptom 1</option>
-            <option value="2">Symptom 2</option>
-            <option value="3">Symptom 3</option>
+            <?php foreach(AllergySymptoms::getAll() as $value => $description): ?>
+              <option value="<?= $value; ?>"><?= $description; ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
       </div>
