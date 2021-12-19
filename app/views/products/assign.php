@@ -49,9 +49,9 @@
       <input type="hidden" id="id" name="id" value="<?=Request::get('id');?>">
       <div class="form-group">
         <label for="symptoptoms">Allergy symptoms:</label>
-        <div class="input-group mb-3">
-          <select name="symptoptoms" class="custom-select" id="symptoptoms">
-            <option hidden>Select...</option>
+        <div class="input-group is-invalid mb-3">
+          <select name="symptoms" class="custom-select <?= array_key_exists('symptoms', $this->errors) ? ' is-invalid' : '' ;?>" id="symptoptoms">
+            <option value="0" hidden>Select...</option>
             <?php foreach(AllergySymptoms::getAll() as $value => $description): ?>
               <option value="<?= $value; ?>"><?= $description; ?></option>
             <?php endforeach; ?>

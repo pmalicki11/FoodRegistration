@@ -108,9 +108,23 @@
     }
 
     public function assignAction($id) {
+      if(!Request::isEmpty()) {
+        $symptoms = Request::get('symptoms');
+        if(!empty($symptoms) && $symptoms != 0) {
+          $userProductsEngine = new UserProductsEngine();
+          if($userProductsEngine->assign(Session::currentUser()->getId(), $id, $symptoms)) {
+            Router::redirect('account/profile');
+          } else {
+            $this->_view->errors = $userProductsEngine->getErrors();
+          }
+        } else {
+          $this->_view->errors = ['symptoms' => 'Symptoms are required'];
+        }
+      }
+
       $productEngine = new ProductEngine();
-      $ingredientEngine = new IngredientEngine();
       $this->_view->product = $productEngine->getById($id);
+      $ingredientEngine = new IngredientEngine();
       $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
       $this->_view->render('products/assign');
     }

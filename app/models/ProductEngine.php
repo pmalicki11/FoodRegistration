@@ -13,7 +13,6 @@
       $this->_db = DB::getInstance();
     }
 
-
     public function add($product, $ingredients) {
       $this->_product = $product;
       $this->_ingredients = $ingredients;
@@ -211,5 +210,4 @@
     public function getErrors() {
       return $this->_errors;
     }
-
   }
