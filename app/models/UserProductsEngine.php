@@ -45,4 +45,22 @@
     public function getErrors() {
       return $this->_errors;
     }
+
+    public function getProductsOfUser($userId) {
+      $productsWithSymptoms = $this->_db->select('user_products', [
+        'Columns' => ['product_id', 'symptoms'],
+        'Conditions' => ['user_id' => ['=', $userId]]
+      ]);
+
+      $userProducts = [];
+
+      if(!empty($productsWithSymptoms)) {
+        $productEngine = new ProductEngine();
+        foreach($productsWithSymptoms as $product) {
+          $userProducts[] = $productEngine->getById($product['product_id']);
+          end($userProducts)->symptoms = $product['symptoms'];
+        }
+      }
+      return $userProducts;
+    }
   }
