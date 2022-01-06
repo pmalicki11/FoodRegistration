@@ -25,7 +25,7 @@
     public function getUserByName($userName) {
       $result = $this->_db->select('users', [
         'Columns' => ['*'],
-        'Conditions' => ['id' => ['=', $userName]]
+        'Conditions' => ['username' => ['=', $userName]]
       ]);
 
       if(count($result) == 1) {
