@@ -128,4 +128,10 @@
       $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
       $this->_view->render('products/assign');
     }
+
+    public function unassignAction($id) {
+      $productEngine = new ProductEngine();
+      $productEngine->unassign($id);
+      Router::redirect('account/profile');
+    }
   }
