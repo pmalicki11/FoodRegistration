@@ -6,6 +6,13 @@
   <div class="row p-3">
     <h3><?= $this->product->name; ?></h3>
   </div>
+
+    <?php if($err = Session::getField('prodDelErr')) : ?>
+      <div class="alert alert-danger">
+        <span class="d-block"><?= $err ?></span>
+      </div>
+    <?php endif; ?>
+
     <div class="row px-3">
     <?php if(Session::currentUser()->role == 'admin') : ?>
       <a href="<?= PROOT; ?>products/edit/<?= $this->product->getId(); ?>" class="btn btn-outline-dark m-1" role="button">
@@ -47,7 +54,7 @@
   </div>
 </div>
 
-
-  
-
-<?php $this->end(); ?>
+<?php
+  Session::unsetField('prodDelErr');
+  $this->end();
+?>

@@ -193,7 +193,6 @@
     }
 
     public function delete($id) {
-      //todo check if product is assigned to any user
       $params = ['Conditions' => ['id' => $id]];
       if($this->_db->delete('products', $params)) {
         $this->_deleteProductIngredients($id);

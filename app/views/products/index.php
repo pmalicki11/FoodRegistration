@@ -6,6 +6,12 @@
 <div class="px-2">
   <h3 class="my-4">Products</h3>
 
+  <?php if($err = Session::getField('prodDelErr')) : ?>
+    <div class="alert alert-danger">
+      <span class="d-block"><?= $err ?></span>
+    </div>
+  <?php endif; ?>
+
   <a href="<?= PROOT; ?>products/add" class="btn btn-outline-dark my-2" role="button">
     <i class="bi bi-plus"></i>
     <span>Add</span>
@@ -51,4 +57,7 @@
   </table>
 </div>
 
-<?php $this->end(); ?>
+<?php
+  Session::unsetField('prodDelErr');
+  $this->end();
+?>

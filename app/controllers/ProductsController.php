@@ -103,8 +103,15 @@
 
     public function deleteAction($id) {
       $productEngine = new ProductEngine();
-      $productEngine->delete($id);
-      Router::redirect('products/index');
+      $userProductsEngine = new UserProductsEngine();
+      if(!$userProductsEngine->isProductAssignedToAnyUser($id)) {
+        $productEngine->delete($id);
+      } else {
+        Session::setField(['prodDelErr' => 'Can not delete! Product is assigned to at least one user.']);
+      }
+      
+      $referer = Router::referer();
+      Router::redirect($referer);
     }
 
     public function assignAction($id) {

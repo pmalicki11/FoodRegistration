@@ -42,6 +42,18 @@
       return true;
     }
 
+    public function isProductAssignedToAnyUser($productId) {
+      $result = $this->_db->select('user_products', [
+        'Columns' => ['*'],
+        'Conditions' => [
+          'product_id' => ['=', $productId],
+          'user_id' => ['!=', '']
+        ]
+      ]);
+
+      return (!empty($result));
+    }
+
     public function getErrors() {
       return $this->_errors;
     }
