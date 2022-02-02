@@ -18,7 +18,8 @@
       "index",
       "show",
       "add",
-      "assign"
+      "assign",
+      "unassign"
     ],
     "ingredients" : [
       "getByNamePart",
