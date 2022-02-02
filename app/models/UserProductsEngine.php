@@ -26,6 +26,17 @@
       return false;
     }
 
+    public function unassign($userId, $productId) {
+      $params = [
+        'Conditions' => [
+          'user_id' => $userId,
+          'product_id' => $productId
+        ]
+      ];
+
+      $this->_db->delete('user_products', $params);  
+    }
+
     public function isProductAssignedToUser($productId, $userId) {
       $result = $this->_db->select('user_products', [
         'Columns' => ['*'],

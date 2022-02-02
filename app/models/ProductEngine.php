@@ -210,8 +210,4 @@
     public function getErrors() {
       return $this->_errors;
     }
-
-    public function unassign($id) {
-      //todo
-    }
   }

@@ -137,8 +137,8 @@
     }
 
     public function unassignAction($id) {
-      $productEngine = new ProductEngine();
-      $productEngine->unassign($id);
+      $userProductsEngine = new UserProductsEngine();
+      $userProductsEngine->unassign(Session::currentUser()->getId(), $id);
       Router::redirect('account/profile');
     }
   }
