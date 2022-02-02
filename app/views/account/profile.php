@@ -3,7 +3,7 @@
   $this->start('head');
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?= PROOT.DS.'app'.DS.'css'.DS.'profilePicture.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?=PROOT . DS . 'app' . DS . 'css' . DS . 'profilePicture.css';?>">
 
 <?php
   $this->end();
@@ -30,6 +30,37 @@
           <span>Add picture</span>
         </button>
       </div>
+    </div>
+    <div class="row align-items-center p-4">
+      <h4>My products</h4>
+
+
+      <table class="table table-responsive table-striped">
+
+        <thead class="thead-dark">
+        <tr>
+          <th class="align-middle" scope="col">Actions</th>
+          <th class="align-middle" scope="col">Name</th>
+          <th class="align-middle" scope="col">Symptoms</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <?php foreach($this->userProducts as $product): ?>
+          <tr>
+            <td class="col-md-1 text-center">
+              <a href="<?=PROOT;?>products/unassign/<?=$product->getId();?>" class="text-danger px-2"><i class="h5 bi bi-x-square"></i></a>
+            </td>
+            <td class="col-md-4">
+              <a href="<?=PROOT;?>products/show/<?=$product->getId();?>"><?=$product->name;?></a>
+            </td>
+            <td class="col"><?=AllergySymptoms::getDescription($product->symptoms);?></td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+
+
     </div>
   </div>
 </div>

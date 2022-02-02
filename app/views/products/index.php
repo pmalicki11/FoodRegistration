@@ -6,6 +6,12 @@
 <div class="px-2">
   <h3 class="my-4">Products</h3>
 
+  <?php if($err = Session::getField('prodDelErr')) : ?>
+    <div class="alert alert-danger">
+      <span class="d-block"><?= $err ?></span>
+    </div>
+  <?php endif; ?>
+
   <a href="<?= PROOT; ?>products/add" class="btn btn-outline-dark my-2" role="button">
     <i class="bi bi-plus"></i>
     <span>Add</span>
@@ -34,7 +40,7 @@
               <a href="edit/<?=$product->getId();?>" class="text-body px-2"><i class="h5 bi bi-pencil-square"></i></a>
               <a href="delete/<?=$product->getId();?>" class="text-danger px-2"><i class="h5 bi bi-x-square"></i></a>
             <?php endif; ?>
-            <a href="#/<?=$product->getId();?>" class="text-success px-2"><i class="h5 bi bi-clipboard-plus"></i></a>
+            <a href="assign/<?=$product->getId();?>" class="text-success px-2"><i class="h5 bi bi-clipboard-plus"></i></a>
           </td>
           <td class="col-md-4">
             <a href="show/<?= $product->getId(); ?>"><?= $product->name; ?></a>
@@ -51,4 +57,7 @@
   </table>
 </div>
 
-<?php $this->end(); ?>
+<?php
+  Session::unsetField('prodDelErr');
+  $this->end();
+?>

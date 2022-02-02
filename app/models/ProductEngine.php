@@ -13,7 +13,6 @@
       $this->_db = DB::getInstance();
     }
 
-
     public function add($product, $ingredients) {
       $this->_product = $product;
       $this->_ingredients = $ingredients;
@@ -193,7 +192,7 @@
       return null;
     }
 
-    public function delete($id) {      
+    public function delete($id) {
       $params = ['Conditions' => ['id' => $id]];
       if($this->_db->delete('products', $params)) {
         $this->_deleteProductIngredients($id);
@@ -211,5 +210,4 @@
     public function getErrors() {
       return $this->_errors;
     }
-
   }

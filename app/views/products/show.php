@@ -6,8 +6,15 @@
   <div class="row p-3">
     <h3><?= $this->product->name; ?></h3>
   </div>
-    <?php if(Session::currentUser()->role == 'admin') : ?>
+
+    <?php if($err = Session::getField('prodDelErr')) : ?>
+      <div class="alert alert-danger">
+        <span class="d-block"><?= $err ?></span>
+      </div>
+    <?php endif; ?>
+
     <div class="row px-3">
+    <?php if(Session::currentUser()->role == 'admin') : ?>
       <a href="<?= PROOT; ?>products/edit/<?= $this->product->getId(); ?>" class="btn btn-outline-dark m-1" role="button">
         <i class="bi bi-pencil-fill"></i>
         <span>Edit</span>
@@ -16,8 +23,12 @@
         <i class="bi bi-x"></i>
         <span>Delete</span>
       </a> 
+    <?php endif; ?>
+      <a href="<?= PROOT; ?>products/assign/<?= $this->product->getId(); ?>" class="btn btn-outline-success m-1" role="button">
+        <i class="bi bi-clipboard-plus"></i>
+        <span>Assign</span>
+      </a>
     </div>
-  <?php endif; ?>
   <div class="row">
     <div class="col-lg-5 p-2">
       <h5 class="p-2">Nutrition info</h5>
@@ -43,7 +54,7 @@
   </div>
 </div>
 
-
-  
-
-<?php $this->end(); ?>
+<?php
+  Session::unsetField('prodDelErr');
+  $this->end();
+?>

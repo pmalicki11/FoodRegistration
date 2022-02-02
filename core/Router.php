@@ -56,6 +56,11 @@
       return false;
     }
 
+    public static function referer() {
+      $refererUrl = $_SERVER['HTTP_REFERER'];
+      return substr($refererUrl, strpos($refererUrl, PROOT) + strlen(PROOT));
+    }
+
     public static function currentPage() {
       return $_SERVER['PATH_INFO'];
     }

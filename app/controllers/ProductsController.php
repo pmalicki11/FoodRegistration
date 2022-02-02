@@ -103,7 +103,42 @@
 
     public function deleteAction($id) {
       $productEngine = new ProductEngine();
-      $productEngine->delete($id);
-      Router::redirect('products/index');
+      $userProductsEngine = new UserProductsEngine();
+      if(!$userProductsEngine->isProductAssignedToAnyUser($id)) {
+        $productEngine->delete($id);
+      } else {
+        Session::setField(['prodDelErr' => 'Can not delete! Product is assigned to at least one user.']);
+      }
+      
+      $referer = Router::referer();
+      Router::redirect($referer);
+    }
+
+    public function assignAction($id) {
+      if(!Request::isEmpty()) {
+        $symptoms = Request::get('symptoms');
+        if(!empty($symptoms) && $symptoms != 0) {
+          $userProductsEngine = new UserProductsEngine();
+          if($userProductsEngine->assign(Session::currentUser()->getId(), $id, $symptoms)) {
+            Router::redirect('account/profile');
+          } else {
+            $this->_view->errors = $userProductsEngine->getErrors();
+          }
+        } else {
+          $this->_view->errors = ['symptoms' => 'Symptoms are required'];
+        }
+      }
+
+      $productEngine = new ProductEngine();
+      $this->_view->product = $productEngine->getById($id);
+      $ingredientEngine = new IngredientEngine();
+      $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
+      $this->_view->render('products/assign');
+    }
+
+    public function unassignAction($id) {
+      $userProductsEngine = new UserProductsEngine();
+      $userProductsEngine->unassign(Session::currentUser()->getId(), $id);
+      Router::redirect('account/profile');
     }
   }

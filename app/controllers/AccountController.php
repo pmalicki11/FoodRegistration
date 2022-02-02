@@ -10,11 +10,11 @@
       $this->_view = new View();
     }
 
-
     public function profileAction() {
+      $userProductsEngine = new UserProductsEngine();
+      $this->_view->userProducts = $userProductsEngine->getProductsOfUser(Session::currentUser()->getId());
       $this->_view->render('account/profile');
     }
-
 
     public function registerAction() {
       if(!Request::isEmpty()) {
@@ -32,7 +32,6 @@
       }
       $this->_view->render('account/register');
     }
-
 
     public function loginAction() {
       if(!Request::isEmpty()) {
@@ -61,7 +60,6 @@
       $this->_view->render('account/login');   
     }
 
-    
     public function logoutAction() {
       $authenticator = new Authenticator();
       $authenticator->removeUserSession(Session::currentUser());
@@ -70,7 +68,6 @@
       Cookie::deleteJWTCookie();
       Router::redirect('home/index');
     }
-
 
     public function activateAction() {
       $token = $_REQUEST["token"];
