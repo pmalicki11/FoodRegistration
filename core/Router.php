@@ -61,6 +61,34 @@
       return substr($refererUrl, strpos($refererUrl, PROOT) + strlen(PROOT));
     }
 
+    public static function refererArray() {
+      $array = explode('/', self::referer());
+      $controller = array_shift($array);
+      $action = '';
+      $params = [];
+
+      if(count($array) > 1) {
+        $action = array_shift($array);
+        $params[] = $array;
+
+      } elseif(count($array) == 1) {
+        $array = explode('?', $array[0]);
+        $action = array_shift($array);
+        $array = explode('&', $array[0]);
+        
+        foreach($array as $param) {
+          $param = explode('=', $param);
+          $params[$param[0]] = $param[1]; 
+        }
+      }
+
+      return [
+        'controller' => $controller,
+        'action' => $action,
+        'params' => $params
+      ];
+    }
+
     public static function currentPage() {
       return $_SERVER['PATH_INFO'];
     }

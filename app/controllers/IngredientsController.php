@@ -10,16 +10,15 @@
 
     public function indexAction() {
       $page = (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0) ? $_REQUEST["page"] : 1;
-      $rowCount = 12;
       $offset = 0;
       if($page != 1) {
-        $offset = $page * $rowCount - $rowCount + 1;
+        $offset = $page * INGREDIENTS_PER_INDEX_PAGE - INGREDIENTS_PER_INDEX_PAGE + 1;
       }
 
       $engine = new IngredientEngine();
-      $this->_view->ingredients = $engine->getAll($rowCount, $offset);
+      $this->_view->ingredients = $engine->getAll(INGREDIENTS_PER_INDEX_PAGE, $offset);
       $ingredientsCount = count($engine->getAll());
-      $this->_view->totalPages = ceil(($ingredientsCount - 1) / $rowCount);
+      $this->_view->totalPages = ceil(($ingredientsCount - 1) / INGREDIENTS_PER_INDEX_PAGE);
       $this->_view->currentPage = $page;
       $this->_view->render('ingredients/index');
     }
@@ -78,7 +77,9 @@
       } else {
         Session::setField(['ingDelErr' => 'Can not delete! Ingredient is referenced by at least one product.']);
       }
-      Router::redirect('ingredients/index');
+      
+      $page = '?page=' . Router::refererArray()['params']['page'] ?? 1;  
+      Router::redirect('ingredients/index' . $page);
     }
 
   }
