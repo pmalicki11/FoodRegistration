@@ -1,15 +1,13 @@
 <?php
 
-  class HomeController {
-
-    private $_view;
+  class HomeController extends Controller {
 
     public function __construct() {
-      $this->_view = new View();
+      parent::__construct();
     }
 
     public function indexAction() {
-      $this->_view->render('home/index');
+      $this->view->render('home/index');
     }
 
   }

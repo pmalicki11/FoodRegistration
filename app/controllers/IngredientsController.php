@@ -1,11 +1,9 @@
 <?php
 
-  class IngredientsController {
-
-    private $_view;
+  class IngredientsController extends Controller {
 
     public function __construct() {
-      $this->_view = new View();
+      parent::__construct();
     }
 
     public function indexAction() {
@@ -16,11 +14,11 @@
       }
 
       $engine = new IngredientEngine();
-      $this->_view->ingredients = $engine->getAll(INGREDIENTS_PER_INDEX_PAGE, $offset);
+      $this->view->ingredients = $engine->getAll(INGREDIENTS_PER_INDEX_PAGE, $offset);
       $ingredientsCount = count($engine->getAll());
-      $this->_view->totalPages = ceil(($ingredientsCount - 1) / INGREDIENTS_PER_INDEX_PAGE);
-      $this->_view->currentPage = $page;
-      $this->_view->render('ingredients/index');
+      $this->view->totalPages = ceil(($ingredientsCount - 1) / INGREDIENTS_PER_INDEX_PAGE);
+      $this->view->currentPage = $page;
+      $this->view->render('ingredients/index');
     }
 
     public function addAction() {
@@ -35,9 +33,9 @@
           }
           $errors = $engine->getErrors();
         }
-        $this->_view->errors = $errors;
+        $this->view->errors = $errors;
       }
-      $this->_view->render('ingredients/add');
+      $this->view->render('ingredients/add');
     }
 
     public function editAction($id) {
@@ -48,8 +46,8 @@
           'id' => $ingredient->getId(),
           'name' => $ingredient->name
         ]);
-        $this->_view->mode = 'edit';
-        $this->_view->render('ingredients/add');
+        $this->view->mode = 'edit';
+        $this->view->render('ingredients/add');
 
       } else {
         $ingredient = new Ingredient();
@@ -62,10 +60,10 @@
           }
           $errors = $engine->getErrors();
         }
-        $this->_view->errors = $errors;
+        $this->view->errors = $errors;
         Request::set(['id' => $ingredient->getId()]);
-        $this->_view->mode = 'edit';
-        $this->_view->render('ingredients/add');
+        $this->view->mode = 'edit';
+        $this->view->render('ingredients/add');
       }
     }
 

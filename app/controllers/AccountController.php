@@ -1,19 +1,15 @@
 <?php
 
-  class AccountController {
-
-    private $_view;
-    private $_account;
-    private $_userSessions;
+  class AccountController extends Controller {
 
     public function __construct() {
-      $this->_view = new View();
+      parent::__construct();
     }
 
     public function profileAction() {
       $userProductsEngine = new UserProductsEngine();
-      $this->_view->userProducts = $userProductsEngine->getProductsOfUser(Session::currentUser()->getId());
-      $this->_view->render('account/profile');
+      $this->view->userProducts = $userProductsEngine->getProductsOfUser(Session::currentUser()->getId());
+      $this->view->render('account/profile');
     }
 
     public function registerAction() {
@@ -28,9 +24,9 @@
           }
           $errors = $registrator->getErrors();
         }
-        $this->_view->errors = $errors;
+        $this->view->errors = $errors;
       }
-      $this->_view->render('account/register');
+      $this->view->render('account/register');
     }
 
     public function loginAction() {
@@ -55,9 +51,9 @@
           }
           $errors = $authenticator->getErrors();
         }
-        $this->_view->errors = $errors;
+        $this->view->errors = $errors;
       }
-      $this->_view->render('account/login');   
+      $this->view->render('account/login');   
     }
 
     public function logoutAction() {
@@ -73,7 +69,7 @@
       $token = $_REQUEST["token"];
       $activator = new Activator($token);
       $activator->activateAccount();
-      $this->_view->errors = $activator->getErrors();
-      $this->_view->render('account/login');
+      $this->view->errors = $activator->getErrors();
+      $this->view->render('account/login');
     }
   }

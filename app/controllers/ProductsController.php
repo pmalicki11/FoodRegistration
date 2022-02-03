@@ -1,17 +1,15 @@
 <?php
 
-  class ProductsController {
-
-    private $_view;
+  class ProductsController extends Controller {
 
     public function __construct() {
-      $this->_view = new View();
+      parent::__construct();
     }
 
     public function indexAction() {
       $engine = new ProductEngine();
-      $this->_view->products = $engine->getAll();
-      $this->_view->render('products/index');
+      $this->view->products = $engine->getAll();
+      $this->view->render('products/index');
     }
 
     public function addAction() {
@@ -35,9 +33,9 @@
           }
           $errors = $engine->getErrors();
         }
-        $this->_view->errors = $errors;
+        $this->view->errors = $errors;
       }
-      $this->_view->render('products/add');
+      $this->view->render('products/add');
     }
 
     public function editAction($id) {
@@ -63,8 +61,8 @@
           'protein' => $product->protein,
           'multiselectOption' => $ingredientNames
         ]);
-        $this->_view->mode = 'edit';
-        $this->_view->render('products/add');
+        $this->view->mode = 'edit';
+        $this->view->render('products/add');
 
       } else {
         $product = new Product();
@@ -86,19 +84,19 @@
           }
           $errors = $engine->getErrors();
         }
-        $this->_view->errors = $errors;
+        $this->view->errors = $errors;
         Request::set(['id' => $product->getId()]);
-        $this->_view->mode = 'edit';
-        $this->_view->render('products/add');
+        $this->view->mode = 'edit';
+        $this->view->render('products/add');
       }
     }
 
     public function showAction($id) {
       $productEngine = new ProductEngine();
       $ingredientEngine = new IngredientEngine();
-      $this->_view->product = $productEngine->getById($id);
-      $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
-      $this->_view->render('products/show');
+      $this->view->product = $productEngine->getById($id);
+      $this->view->ingredients = $ingredientEngine->getAllForProduct($id);
+      $this->view->render('products/show');
     }
 
     public function deleteAction($id) {
@@ -122,18 +120,18 @@
           if($userProductsEngine->assign(Session::currentUser()->getId(), $id, $symptoms)) {
             Router::redirect('account/profile');
           } else {
-            $this->_view->errors = $userProductsEngine->getErrors();
+            $this->view->errors = $userProductsEngine->getErrors();
           }
         } else {
-          $this->_view->errors = ['symptoms' => 'Symptoms are required'];
+          $this->view->errors = ['symptoms' => 'Symptoms are required'];
         }
       }
 
       $productEngine = new ProductEngine();
-      $this->_view->product = $productEngine->getById($id);
+      $this->view->product = $productEngine->getById($id);
       $ingredientEngine = new IngredientEngine();
-      $this->_view->ingredients = $ingredientEngine->getAllForProduct($id);
-      $this->_view->render('products/assign');
+      $this->view->ingredients = $ingredientEngine->getAllForProduct($id);
+      $this->view->render('products/assign');
     }
 
     public function unassignAction($id) {
