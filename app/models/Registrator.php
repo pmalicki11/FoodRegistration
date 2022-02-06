@@ -15,6 +15,7 @@
         $user->password .= $user->salt;
         $user->password = hash("sha256", $user->password);
         $user->role = 'user';
+        $user->registeredAt = date('Y-m-d');
         $user->active = md5(rand());
         if($this->_saveUser($user)) {
           $emailEngine = new EmailEngine();
@@ -60,6 +61,7 @@
         'salt' => $user->salt,
         'email' => $user->email,
         'role' => $user->role,
+        'registered_at' => $user->registeredAt,
         'active' => $user->active
       ];
       return $this->_db->insert('users', $params);

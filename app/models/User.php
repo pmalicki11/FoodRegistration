@@ -8,6 +8,7 @@ class User {
   public $salt;
   public $email;
   public $role;
+  public $registeredAt;
   public $active;
   private $_validators = [];
 
@@ -31,6 +32,7 @@ class User {
     $this->salt = $data['salt'];
     $this->email = $data['email'];
     $this->role = $data['role'];
+    $this->registeredAt = $data['registered_at'];
     $this->active = $data['active'];
   }
 
@@ -57,7 +59,6 @@ class User {
       if($validator->run()) {
         $errors = array_merge($errors, $validator->run());   
       }
-      //$errors[] = $validator->run();
     }
     return $errors;
   }
