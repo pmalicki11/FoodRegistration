@@ -124,7 +124,8 @@
         'energy' => str_replace(',', '.', $this->_product->energy),
         'fat' => str_replace(',', '.', $this->_product->fat),
         'carbohydrates' => str_replace(',', '.', $this->_product->carbohydrates),
-        'protein' => str_replace(',', '.', $this->_product->protein)
+        'protein' => str_replace(',', '.', $this->_product->protein),
+        'added_by' => $this->_product->addedBy
       ];
       return $this->_db->insert('products', $params);
     }

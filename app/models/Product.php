@@ -10,6 +10,7 @@ class Product {
   public $fat;
   public $carbohydrates;
   public $protein;
+  public $addedBy;
   private $_validators = [];
 
   public function __construct() {
@@ -28,6 +29,7 @@ class Product {
     $this->fat = Request::get('fat');
     $this->carbohydrates = Request::get('carbohydrates');
     $this->protein = Request::get('protein');
+    $this->addedBy = Session::currentUser()->getId();
   }
 
   public function setFromDatabase($data) {
@@ -39,6 +41,7 @@ class Product {
     $this->fat = $data['fat'];
     $this->carbohydrates = $data['carbohydrates'];
     $this->protein = $data['protein'];
+    $this->addedBy = $data['added_by'];
   }
 
   public function validate() {
@@ -63,7 +66,8 @@ class Product {
       'energy' => $this->energy,
       'fat' => $this->fat,
       'carbohydrates' => $this->carbohydrates,
-      'protein' => $this->protein
+      'protein' => $this->protein,
+      'added_by' => $this->addedBy
     ];
   }
 

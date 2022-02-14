@@ -22,7 +22,12 @@
       <a href="<?= PROOT; ?>products/delete/<?= $this->product->getId(); ?>" class="btn btn-outline-danger m-1" role="button">
         <i class="bi bi-x"></i>
         <span>Delete</span>
-      </a> 
+      </a>
+    <?php elseif(Session::currentUser()->getId() == $this->product->addedBy) : ?>
+      <a href="<?= PROOT; ?>products/edit/<?= $this->product->getId(); ?>" class="btn btn-outline-dark m-1" role="button">
+        <i class="bi bi-pencil-fill"></i>
+        <span>Edit</span>
+      </a>
     <?php endif; ?>
       <a href="<?= PROOT; ?>products/assign/<?= $this->product->getId(); ?>" class="btn btn-outline-success m-1" role="button">
         <i class="bi bi-clipboard-plus"></i>
