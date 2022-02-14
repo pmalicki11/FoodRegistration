@@ -120,11 +120,11 @@
       $params = [
         'name' => $this->_product->name,
         'producer' => $this->_product->producer,
-        'portion' => $this->_product->portion,
-        'energy' => $this->_product->energy,
-        'fat' => $this->_product->fat,
-        'carbohydrates' => $this->_product->carbohydrates,
-        'protein' => $this->_product->protein
+        'portion' => str_replace(',', '.', $this->_product->portion),
+        'energy' => str_replace(',', '.', $this->_product->energy),
+        'fat' => str_replace(',', '.', $this->_product->fat),
+        'carbohydrates' => str_replace(',', '.', $this->_product->carbohydrates),
+        'protein' => str_replace(',', '.', $this->_product->protein)
       ];
       return $this->_db->insert('products', $params);
     }
