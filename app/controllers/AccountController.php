@@ -8,7 +8,9 @@
 
     public function profileAction() {
       $userProductsEngine = new UserProductsEngine();
-      $this->view->userProducts = $userProductsEngine->getProductsOfUser(Session::currentUser()->getId());
+      $userId = Session::currentUser()->getId();
+      $this->view->userProducts = $userProductsEngine->getProductsOfUser($userId);
+      $this->view->userIngredientsStats = $userProductsEngine->getUserIngredientsStats($userId, true);
       $this->view->render('account/profile');
     }
 

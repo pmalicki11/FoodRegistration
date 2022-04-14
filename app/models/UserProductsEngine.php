@@ -86,4 +86,49 @@
       }
       return $userProducts;
     }
+
+    public function getUserIngredientsStats($userId, $moreThanOne) {
+      $userProducts = $this->_db->select('user_products', [
+        'Columns' => ['product_id'],
+        'Conditions' => ['user_id' => ['=', $userId]]
+      ]);
+
+      $productIds = [];
+      foreach($userProducts as $userProduct) {
+        $productIds[] = $userProduct['product_id'];
+      }
+
+      $userIngredients = $this->_db->select('product_ingredients', [
+        'Columns' => ['ingredient_id'],
+        'Conditions' => ['product_id' => ['IN', $productIds]]
+      ]);
+
+      $ingredientsStats = [];
+      $ingredientEngine = new IngredientEngine();
+      foreach($userIngredients as $userIngredient) {
+        $id = $userIngredient['ingredient_id'];
+        if(!isset($ingredientsStats[$id])) {
+          $ingredientsStats[$id] = [
+            'name' => $ingredientEngine->getById($id)->name,
+            'count' => 1
+          ];
+        } else {
+          $ingredientsStats[$id]['count']++;
+        }
+      }
+
+      if ($moreThanOne) {
+        $ingredientsStats = array_filter($ingredientsStats, function($item) {
+          return $item['count'] > 1; 
+        });
+      }
+
+      array_multisort(
+        array_column($ingredientsStats, 'count'), SORT_DESC,
+        array_column($ingredientsStats, 'name'), SORT_ASC,
+        $ingredientsStats
+      );
+
+      return $ingredientsStats;
+    }
   }

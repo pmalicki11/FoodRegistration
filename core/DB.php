@@ -46,8 +46,18 @@
 
       if(isset($params['Conditions'])) {
         foreach($params['Conditions'] as $column => $value) {
-          $conditions .= "`{$column}` {$value[0]} ? AND ";
-          $bindingParams[] = $value[1];
+          if ($value[0] === 'IN' && !empty($value[1])) {
+            $placeholder = '(';
+            foreach($value[1] as $inElement) {
+              $placeholder .= '?, ';
+              $bindingParams[] = $inElement;
+            }
+            $placeholder = rtrim($placeholder, ', ') . ')';
+          } else {
+            $placeholder = '?';
+            $bindingParams[] = $value[1];
+          }
+          $conditions .= "`{$column}` {$value[0]} {$placeholder} AND ";
         }
         $conditions = rtrim($conditions, ' AND ');
         if(strlen($conditions) > 0) {
