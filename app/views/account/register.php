@@ -6,6 +6,7 @@
 <div class="row align-items-center justify-content-center">
   <div class="col-lg-6 bg-light p-4 m-5 border border-secondary rounded">
     <h2 class="text-center">Register</h2>
+      <h3 class="text-center text-danger">! Registration is temporarily disabled !</h3>
 
     <?php if(!empty($this->errors)) : ?>
       <div class="alert alert-danger">

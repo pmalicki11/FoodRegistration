@@ -21,7 +21,8 @@
         $errors = $user->validateOnRegister();
         if(empty($errors)) {
           $registrator = new Registrator();
-          if($registrator->registerUser($user)) {
+          //if($registrator->registerUser($user)) { todo registration is turned off until SPF, DKIM is fixed
+          if(true) {
             Router::redirect('account/login');
           }
           $errors = $registrator->getErrors();

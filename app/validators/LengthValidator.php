@@ -28,7 +28,7 @@
     }
 
     private function _checkEmpty() {
-      if($this->_minLength > 0 && strlen($this->_data) == 0) {
+      if($this->_minLength > 0 && strlen($this->_data ?? '') == 0) {
         return [$this->_field => ucfirst($this->_field) . ' can not be empty'];
       }
       return null;

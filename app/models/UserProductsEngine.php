@@ -98,10 +98,10 @@
         $productIds[] = $userProduct['product_id'];
       }
 
-      $userIngredients = $this->_db->select('product_ingredients', [
+      $userIngredients = empty($productIds) ? [] : $this->_db->select('product_ingredients', [
         'Columns' => ['ingredient_id'],
-        'Conditions' => ['product_id' => ['IN', $productIds]]
-      ]);
+        'Conditions' => ['product_id' => ['IN', $productIds]]]
+      );
 
       $ingredientsStats = [];
       $ingredientEngine = new IngredientEngine();

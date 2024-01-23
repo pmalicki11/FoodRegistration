@@ -12,14 +12,14 @@
     public const SHOC = 8;
 
     private static $_descriptions = [
-      self::FOOD => 'Dolegliwości pokarmowe - wymioty, biegunki, zgaga, zaparcia, odbijanie, mdłości, wzdęcia brzucha, bóle brzucha',
-      self::ORAL => 'Dolegliwości jamy ustnej - pieczenie i szczypanie w obrębie jamy ustnej, obrzęk warg',
-      self::SKIN => 'Dolegliwości skóry - wypryski, swędzenie, atopowe zapalenie skóry',
-      self::NOSE => 'Dolegliwości nosa - katar, zatkany nos i zatoki',
-      self::HEAD => 'Dolegliwości głowy - ból, zawroty',
-      self::LUNG => 'Dolegliwości oddechowe - kaszel, duszności, skrócony lub świszczący oddech, chrypka',
-      self::EYES => 'Doleglowości oczu - łzawienie, pieczenie',
-      self::SHOC => 'Wstrząs anafilaktyczny'
+      self::FOOD => 'Digestive issues - vomiting, diarrhea, heartburn, constipation, belching, nausea, abdominal bloating, abdominal pain',
+      self::ORAL => 'Oral discomfort - burning and stinging in the oral cavity, swelling of the lips',
+      self::SKIN => 'Skin issues - rashes, itching, atopic dermatitis',
+      self::NOSE => 'Nasal issues - runny nose, nasal congestion, sinus problems',
+      self::HEAD => 'Head-related symptoms - headache, dizziness',
+      self::LUNG => 'Respiratory issues - cough, shortness of breath, wheezing, hoarseness',
+      self::EYES => 'Eye-related symptoms - tearing, burning',
+      self::SHOC => 'Anaphylactic shock'
     ];
 
     public static function getDescription($symptomCode) {
